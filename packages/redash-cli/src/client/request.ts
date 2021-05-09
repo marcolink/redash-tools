@@ -18,6 +18,5 @@ export async function request<TResult extends RedashResult, TQuery extends BaseP
     headers: {'Content-Type': 'application/json', Authorization: config.query?.token || config.clientConfig.token},
   })
 
-  const data = await response.json() as TResult
-  return data
+  return await response.json() as TResult
 }

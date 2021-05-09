@@ -1,3 +1,3 @@
 export function stringify(data: any) {
-  return  JSON.stringify(data, null, 2)
+  return JSON.stringify(data, null, 2)
 }

@@ -67,11 +67,21 @@ export type PagedParameters = {
 export type SearchParameters = { q?: string }
 
 export type GetQueriesParameter = PagedParameters & SearchParameters & BaseParameters
+
 export type GetQueryParameter = { id: string } & BaseParameters
 
+export type SnapshotParameters = {
+  queryId: string;
+  visualizationId: string;
+  path?: string;
+  width?: number;
+  height?: number;
+} & BaseParameters
+
 export type QueriesClient = {
-    getMany: (config?: GetQueriesParameter) => Promise<RedashCollectionResult<Query>>;
+    list: (config?: GetQueriesParameter) => Promise<RedashCollectionResult<Query>>;
     get: (config: GetQueryParameter) => Promise<Query>;
+    snapshot: (config: SnapshotParameters) => Promise<string | Buffer | void>;
 }
 
 export type RedashClient = {

@@ -29,7 +29,8 @@ USAGE
 # Commands
 <!-- commands -->
 * [`redash-cli help [COMMAND]`](#redash-cli-help-command)
-* [`redash-cli queries`](#redash-cli-queries)
+* [`redash-cli queries:list`](#redash-cli-querieslist)
+* [`redash-cli queries:snapshot QUERYID VISUALIZATIONID [PATH]`](#redash-cli-queriessnapshot-queryid-visualizationid-path)
 
 ## `redash-cli help [COMMAND]`
 
@@ -50,7 +51,7 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
-## `redash-cli queries`
+## `redash-cli queries:list`
 
 Returns a paginated array of query objects
 
@@ -58,19 +59,47 @@ Returns a paginated array of query objects
 Returns a paginated array of query objects
 
 USAGE
-  $ redash-cli queries
+  $ redash-cli queries:list
 
 OPTIONS
   -h, --help                 show CLI help
   -n, --hostname=hostname    [default: https://redash.io] redash hostname
-  -p, --page=page            [default: 1] page
-  -s, --search=search        search query
+  -p, --page=page            [default: 1] page index
+  -q, --query=query          search query string
+  -s, --page_size=page_size  [default: 25] page size
   -t, --token=token          api (query) token
-  -z, --page_size=page_size  [default: 25] page size
 
 EXAMPLE
-  $ redash-cli queries
+  $ redash-cli queries:list
 ```
 
-_See code: [src/commands/queries.ts](https://github.com/marcolink/redash-cli/blob/v0.0.0/src/commands/queries.ts)_
+_See code: [src/commands/queries/list.ts](https://github.com/marcolink/redash-cli/blob/v0.0.0/src/commands/queries/list.ts)_
+
+## `redash-cli queries:snapshot QUERYID VISUALIZATIONID [PATH]`
+
+Returns a query chart as png
+
+```
+Returns a query chart as png
+
+USAGE
+  $ redash-cli queries:snapshot QUERYID VISUALIZATIONID [PATH]
+
+ARGUMENTS
+  QUERYID          query id
+  VISUALIZATIONID  query id
+  PATH             directory path for snapshot png
+
+OPTIONS
+  -h, --height=height      [default: 600] snapshot height
+  -h, --help               show CLI help
+  -n, --hostname=hostname  [default: https://redash.io] redash hostname
+  -t, --token=token        api (query) token
+  -w, --width=width        [default: 800] snapshot width
+
+EXAMPLE
+  $ redash-cli queries:snapshot 1234 4561 ./local/snapshots/directory
+```
+
+_See code: [src/commands/queries/snapshot.ts](https://github.com/marcolink/redash-cli/blob/v0.0.0/src/commands/queries/snapshot.ts)_
 <!-- commandsstop -->
