@@ -3,5 +3,12 @@
   "private": true,
   "devDependencies": {
     "lerna": "^3.22.1"
-  }
+  },
+   "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "lerna": "lerna",
+    "test": "lerna run test --",
+    "build": "lerna run build",
+    "prepublish": "lerna run prepublish"
+   }
 }
