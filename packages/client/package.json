@@ -1,5 +1,6 @@
 {
   "version": "0.1.0",
+  "name": "redash-js-client",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -7,6 +8,8 @@
     "dist",
     "src"
   ],
+  "repository": "marcolink/redash-tools",
+  "homepage": "https://github.com/marcolink/redash-tools/packages/client",
   "engines": {
     "node": ">=10"
   },
@@ -31,7 +34,6 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "redash-client",
   "author": "Marco Link",
   "module": "dist/redash-client.esm.js",
   "size-limit": [

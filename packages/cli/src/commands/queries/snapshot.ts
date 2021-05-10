@@ -1,12 +1,12 @@
 import Command, {flags} from '@oclif/command'
-import {queriesClient} from '../../client/queries-client'
+import {queriesClient} from 'redash-js-client'
 import {base} from '../../flags/base'
 
 export default class QueriesSnapshot extends Command {
   static description = 'Returns a query chart as png'
 
   static examples = [
-    '$ redash-cli queries:snapshot 1234 4561 ./local/snapshots/directory',
+    '$ redash-cli queries:snapshot 1234 5678 ./local/snapshots/directory',
   ]
 
   static flags = {

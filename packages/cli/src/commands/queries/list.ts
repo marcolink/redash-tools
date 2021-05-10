@@ -1,5 +1,5 @@
 import Command, {flags} from '@oclif/command'
-import {queriesClient} from '../../client/queries-client'
+import {queriesClient} from 'redash-js-client'
 import {stringify} from '../../utils'
 import {base} from '../../flags/base'
 
