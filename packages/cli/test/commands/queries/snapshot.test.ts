@@ -7,6 +7,6 @@ const emptyQueryCollectionResponse = {
   results: [],
 }
 
-describe('command queries:list ', () => {
-  testAuthorizationHeaderFlag(['queries:list'], '/api/queries', emptyQueryCollectionResponse)
+describe('command queries:snapshot ', () => {
+  testAuthorizationHeaderFlag(['queries:snapshot', 'id', 'visualization'], '/api/queries', emptyQueryCollectionResponse)
 })
