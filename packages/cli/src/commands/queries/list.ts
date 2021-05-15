@@ -1,6 +1,6 @@
 import Command, {flags} from '@oclif/command'
 import {queriesClient} from 'redash-js-client'
-import {validateToken} from '../../partial-command-run'
+import {validateToken} from '../../validations'
 import {stringify} from '../../utils'
 import {base} from '../../flags/base'
 

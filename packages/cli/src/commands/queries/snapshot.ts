@@ -1,7 +1,7 @@
 import Command, {flags} from '@oclif/command'
 import {queriesClient} from 'redash-js-client'
 import {base} from '../../flags/base'
-import {validateToken} from "../../partial-command-run";
+import {validateToken} from '../../validations'
 
 export default class QueriesSnapshot extends Command {
   static description = 'Returns a query chart as png'
@@ -29,7 +29,7 @@ export default class QueriesSnapshot extends Command {
     },
     {
       name: 'path',
-      required: false,
+      required: true,
       description: 'directory path for snapshot png',
     },
   ]
@@ -39,10 +39,11 @@ export default class QueriesSnapshot extends Command {
 
     validateToken(this, flags.token)
 
-    const path = args.path ? `${args.path}/${args.queryId}-${args.visualizationId}.png` : undefined
+    const path = `${args.path}/${args.queryId}-${args.visualizationId}.png`
     const client = queriesClient({host: flags.hostname!, token: flags.token})
 
     this.log('start snapshot process')
+
     await client.snapshot({
       queryId: args.queryId,
       visualizationId: args.visualizationId,
@@ -50,8 +51,9 @@ export default class QueriesSnapshot extends Command {
       width: flags.width,
       height: flags.height,
     })
-    this.log('finished snapshot process')
 
+    this.log('finished snapshot process')
+    this.log(`snapshot stored under ${path}`)
     this.exit()
   }
 }
