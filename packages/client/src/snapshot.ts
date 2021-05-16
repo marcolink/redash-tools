@@ -1,5 +1,5 @@
 import * as puppeteer from 'puppeteer'
-import {RedashClientConfig, SnapshotParameters} from './types'
+import {RedashClientConfig, SnapshotParameters} from './types/common'
 
 export async function snapshot(clientConfig: RedashClientConfig, config: SnapshotParameters) {
   const url = `${clientConfig.host}/embed/query/${config.queryId}/visualization/${config.visualizationId}?api_key=${clientConfig.token}`

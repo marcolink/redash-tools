@@ -1,2 +1,2 @@
-export * from './redash-client'
-export * from './queries-client'
+export * from './clients/redash-client'
+export * from './clients/queries-client'

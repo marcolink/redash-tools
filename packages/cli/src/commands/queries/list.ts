@@ -1,8 +1,8 @@
 import Command, {flags} from '@oclif/command'
 import {queriesClient} from 'redash-js-client'
-import {validateToken} from '../../validations'
-import {stringify} from '../../utils'
 import {base} from '../../flags/base'
+import {stringify} from '../../utils'
+import {validateToken} from '../../validations'
 
 export default class QueriesList extends Command {
   static description = 'Returns a paginated array of query objects'

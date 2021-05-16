@@ -1,4 +1,4 @@
-import {BaseParameters, RedashClientConfig, RedashResult} from './types'
+import {BaseParameters, RedashClientConfig, RedashResult} from './types/common'
 
 const querystring = require('querystring')
 const fetch = require('node-fetch')
