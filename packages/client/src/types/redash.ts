@@ -45,8 +45,17 @@ export namespace Redash {
         };
     }
 
-    export type Job = {
+    /*
+    1 == PENDING (waiting to be executed)
+    2 == STARTED (executing)
+    3 == SUCCESS
+    4 == FAILURE
+    5 == CANCELLED
+    */
 
+    export type Job = {
+        status: 1 | 2 | 3 | 4 | 5
+        query_result_id?: string
     }
 
     export type RedashCollectionResult<TResult> = {

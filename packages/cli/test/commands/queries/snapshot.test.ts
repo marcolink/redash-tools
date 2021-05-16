@@ -8,5 +8,5 @@ const emptyQueryCollectionResponse = {
 }
 
 describe('command queries:snapshot ', () => {
-  testAuthorizationHeaderFlag(['queries:snapshot', 'id', 'visualization'], '/api/queries', emptyQueryCollectionResponse)
+  testAuthorizationHeaderFlag(['queries:snapshot', 'id', 'visualization', '/my-path'], '/api/queries', emptyQueryCollectionResponse)
 })
