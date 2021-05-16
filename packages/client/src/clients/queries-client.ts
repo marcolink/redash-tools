@@ -2,6 +2,7 @@ import {Redash} from "../types/redash";
 import {request} from '../request'
 import {snapshot} from '../snapshot'
 import {
+    GetJobParameter,
     GetQueriesParameter,
     GetQueryParameter,
     QueriesClient,
@@ -23,5 +24,11 @@ export function queriesClient(clientConfig: RedashClientConfig): QueriesClient {
             query
         }),
         snapshot: query => snapshot(clientConfig, query),
+        job: query => request<Redash.Job, GetJobParameter>({
+            clientConfig,
+            path: `/jobs${query.id}`,
+            method: 'GET',
+            query
+        })
     }
 }

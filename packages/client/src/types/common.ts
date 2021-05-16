@@ -22,6 +22,8 @@ export type GetQueriesParameter = PagedParameters & SearchParameters & BaseParam
 
 export type GetQueryParameter = { id: string } & BaseParameters
 
+export type GetJobParameter = { id: string } & BaseParameters
+
 export type SnapshotParameters = {
   queryId: string;
   visualizationId: string;
@@ -34,6 +36,7 @@ export type QueriesClient = {
     list: (config?: GetQueriesParameter) => Promise<Redash.RedashCollectionResult<Redash.Query>>;
     get: (config: GetQueryParameter) => Promise<Redash.Query>;
     snapshot: (config: SnapshotParameters) => Promise<string | Buffer | void>;
+    job: (config: GetQueryParameter) => Promise<Redash.Job>;
 }
 
 export type RedashClient = {

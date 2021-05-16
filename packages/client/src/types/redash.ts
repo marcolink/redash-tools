@@ -45,6 +45,10 @@ export namespace Redash {
         };
     }
 
+    export type Job = {
+
+    }
+
     export type RedashCollectionResult<TResult> = {
         count: number;
         page: number;
