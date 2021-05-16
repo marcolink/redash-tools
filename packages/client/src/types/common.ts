@@ -5,7 +5,7 @@ export type RedashResult = any
 export type ISODateString = `${number}-${number}-${number}T${number}:${number}:${number}Z`
 
 export type RedashClientConfig = {
-    host: string;
+    host?: string;
     token?: string;
 }
 
