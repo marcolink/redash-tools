@@ -9,7 +9,9 @@ export type RedashClientConfig = {
     token?: string;
 }
 
-export type BaseParameters = { token?: string }
+export type RequestClientConfig = Required<RedashClientConfig>
+
+export type BaseParameters = Pick<RedashClientConfig, 'token'>
 
 export type PagedParameters = {
     page?: number;
@@ -36,7 +38,7 @@ export type QueriesClient = {
     list: (config?: GetQueriesParameter) => Promise<Redash.RedashCollectionResult<Redash.Query>>;
     get: (config: GetQueryParameter) => Promise<Redash.Query>;
     snapshot: (config: SnapshotParameters) => Promise<string | Buffer | void>;
-    job: (config: GetQueryParameter) => Promise<Redash.Job>;
+    job: (config: GetJobParameter) => Promise<Redash.Job>;
 }
 
 export type RedashClient = {

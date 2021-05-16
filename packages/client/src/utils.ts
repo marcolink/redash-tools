@@ -1,8 +1,15 @@
-import {RedashClientConfig} from "./types/common";
+import {RedashClientConfig, RequestClientConfig} from "./types/common";
 
-export function mergeToken(config: RedashClientConfig, token?: string) {
-    if (!token) {
-        return config;
+export function ensureConfig(config: RedashClientConfig, token?: string): RequestClientConfig | never {
+    let c = {...config}
+
+    if (token) {
+        c.token = token;
     }
-    return {...config, token}
+
+    if (!c.token) {
+        throw new Error('no token provided')
+    }
+
+    return {host: 'https://redash.io', ...c} as RequestClientConfig
 }

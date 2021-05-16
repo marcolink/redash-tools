@@ -1,4 +1,4 @@
-import {Redash} from "../dist/types/redash";
+import {Redash} from "../src/types/redash";
 import {request} from "../src/request";
 import {snapshot} from "../src/snapshot";
 import {queriesClient} from '../src';
@@ -33,16 +33,14 @@ describe('A queries client', () => {
 
     it('defaults the host parameter', async () => {
         await client.list({});
-        expect(request).toHaveBeenCalledWith(expect.objectContaining({
-            clientConfig: expect.objectContaining({host: 'https://redash.io'})
-        }))
+        expect(request).toHaveBeenCalledWith(
+            expect.objectContaining({host: 'https://redash.io'}), expect.anything()
+        )
     })
 
     it('can override with a query scoped token', async () => {
         await client.list({token: 'query-token'});
-        expect(request).toHaveBeenCalledWith(expect.objectContaining({
-            clientConfig: expect.objectContaining({token: 'query-token'})
-        }))
+        expect(request).toHaveBeenCalledWith(expect.objectContaining({token: 'query-token'}), expect.anything())
     })
 
     describe('with a list function', () => {
@@ -54,8 +52,7 @@ describe('A queries client', () => {
 
         it('fires a request with default parameters', async () => {
             await client.list({});
-            expect(request).toHaveBeenCalledWith({
-                clientConfig: {host: 'https://redash.io', token: 'xxx-token'},
+            expect(request).toHaveBeenCalledWith({host: 'https://redash.io', token: 'xxx-token'}, {
                 method: 'GET',
                 path: '/queries',
                 query: {}
@@ -87,8 +84,7 @@ describe('A queries client', () => {
 
         it('fires a request with default parameters', async () => {
             await client.get({id: 'query-id'});
-            expect(request).toHaveBeenCalledWith({
-                clientConfig: {host: 'https://redash.io', token: 'xxx-token'},
+            expect(request).toHaveBeenCalledWith({host: 'https://redash.io', token: 'xxx-token'}, {
                 method: 'GET',
                 path: '/queries/query-id',
                 query: {id: 'query-id'}
