@@ -1,6 +1,5 @@
 import {request} from "./request";
-import {RequestClientConfig} from "./types/common";
-import {Redash} from "./types/redash";
+import {Redash, RequestClientConfig} from "./types";
 
 async function waitFor<TPayload>(
     fn: () => Promise<TPayload>,

@@ -1,8 +1,7 @@
 import {verifyAllWhenMocksCalled, when} from 'jest-when'
 import {queriesClient} from '../src';
 import {snapshot} from "../src/snapshot";
-import {QueriesClient} from "../src/types/common";
-import {Redash} from "../src/types/redash";
+import {QueriesClient, Redash} from "../src/types";
 import Job = Redash.Job;
 
 jest.mock('../src/snapshot', () => ({
@@ -239,6 +238,7 @@ describe('A queries client', () => {
             const result = await client.updatedResult({id: 'query-id', max_age: 0});
 
             verifyAllWhenMocksCalled()
+
             expect(result).toEqual(mockResultResponse)
         })
     })

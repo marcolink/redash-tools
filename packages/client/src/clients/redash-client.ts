@@ -1,4 +1,4 @@
-import {RedashClient, RedashClientConfig} from '../types/common'
+import {RedashClient, RedashClientConfig} from '../types'
 import {queriesClient} from './queries-client'
 
 export function client(clientConfig?: RedashClientConfig): RedashClient {

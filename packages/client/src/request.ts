@@ -1,4 +1,4 @@
-import {RedashResult, RequestClientConfig} from './types/common'
+import {RedashResult, RequestClientConfig} from './types'
 
 const querystring = require('querystring')
 const fetch = require('node-fetch')

@@ -1,17 +1,19 @@
+import {omit} from 'lodash'
 import {request} from '../request'
 import {snapshot} from '../snapshot'
 import {
     GetCachedResultParameter,
     GetJobParameter,
     GetQueriesParameter,
-    GetQueryParameter, GetUpdatedResultParameter,
+    GetQueryParameter,
+    GetUpdatedResultParameter,
     QueriesClient,
-    RedashClientConfig, SnapshotParameters,
-} from '../types/common'
-import {Redash} from "../types/redash";
+    Redash,
+    RedashClientConfig,
+    SnapshotParameters,
+} from '../types'
 import {ensureConfig} from "../utils";
 import {waitForJob} from "../waitForJob";
-import {omit} from 'lodash'
 
 const createOne = (clientConfig?: RedashClientConfig) => (params: GetQueryParameter) => {
     return request<GetQueryParameter, Redash.Query>(

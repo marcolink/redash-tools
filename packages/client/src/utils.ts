@@ -1,4 +1,4 @@
-import {RedashClientConfig, RequestClientConfig} from "./types/common";
+import {RedashClientConfig, RequestClientConfig} from "./types";
 
 export function ensureConfig(config?: RedashClientConfig, token?: string): RequestClientConfig | never {
     let c = {...config}
