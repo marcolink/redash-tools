@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.build.json",
   "compilerOptions": {
     "declaration": true,
     "importHelpers": true,
@@ -10,6 +10,8 @@
     "target": "es2017"
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "types",
+    "../../types"
   ]
 }
