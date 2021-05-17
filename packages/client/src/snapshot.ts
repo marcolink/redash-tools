@@ -1,7 +1,7 @@
 import * as puppeteer from 'puppeteer'
-import {RedashClientConfig, SnapshotParameters} from './types'
+import {RedashClientConfig, GetSnapshotParameters} from './types'
 
-export async function snapshot(clientConfig: RedashClientConfig, config: SnapshotParameters) {
+export async function snapshot(clientConfig: RedashClientConfig, config: GetSnapshotParameters) {
   const url = `${clientConfig.host}/embed/query/${config.queryId}/visualization/${config.visualizationId}?api_key=${clientConfig.token}`
 
   const browser = await puppeteer.launch()

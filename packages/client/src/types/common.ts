@@ -20,9 +20,9 @@ export type PagedParameters = {
 
 export type SearchParameters = { q?: string }
 
-export type ManyParameters = PagedParameters & SearchParameters & BaseParameters
+export type GetManyParameters = PagedParameters & SearchParameters & BaseParameters
 
-export type OneParameters = { id: string } & BaseParameters
+export type GetOneParameters = { id: string } & BaseParameters
 
 /*
  * Query Client types
@@ -33,7 +33,7 @@ export type GetCachedResultParameters = { id: string } & BaseParameters
 
 export type GetUpdatedResultParameters = { id: string, max_age: number, parameters?: any } & BaseParameters
 
-export type SnapshotParameters = {
+export type GetSnapshotParameters = {
     queryId: string;
     visualizationId: string;
     path?: string;
@@ -42,12 +42,12 @@ export type SnapshotParameters = {
 } & BaseParameters
 
 export type QueryClient = {
-    one: (config: OneParameters) => Promise<Redash.Query>;
-    many: (config?: ManyParameters) => Promise<Redash.RedashCollectionResult<Redash.Query>>;
-    job: (config: GetJobParameters) => Promise<Redash.Job>;
-    cachedResult: (config: GetCachedResultParameters) => Promise<Redash.Result>;
-    updatedResult: (config: GetUpdatedResultParameters) => Promise<Redash.Result>;
-    snapshot: (config: SnapshotParameters) => Promise<string | Buffer | void>;
+    getOne: (config: GetOneParameters) => Promise<Redash.Query>;
+    getMany: (config?: GetManyParameters) => Promise<Redash.RedashCollectionResult<Redash.Query>>;
+    getJob: (config: GetJobParameters) => Promise<Redash.Job>;
+    getCachedResult: (config: GetCachedResultParameters) => Promise<Redash.Result>;
+    getUpdatedResult: (config: GetUpdatedResultParameters) => Promise<Redash.Result>;
+    getSnapshot: (config: GetSnapshotParameters) => Promise<string | Buffer | void>;
 }
 
 /*
@@ -56,9 +56,9 @@ export type QueryClient = {
 export type DashboardOneParameters = { slug: string } & BaseParameters
 
 export type DashboardClient = {
-    one: (config: DashboardOneParameters) => Promise<Redash.Dashboard>;
-    many: (config?: ManyParameters) => Promise<Redash.RedashCollectionResult<Redash.Dashboard>>;
-    favorites: () =>  Promise<Redash.RedashCollectionResult<Redash.Dashboard>>;
+    getOne: (config: DashboardOneParameters) => Promise<Redash.Dashboard>;
+    getMany: (config?: GetManyParameters) => Promise<Redash.RedashCollectionResult<Redash.Dashboard>>;
+    getFavorites: () =>  Promise<Redash.RedashCollectionResult<Redash.Dashboard>>;
 }
 
 /*

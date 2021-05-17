@@ -12,6 +12,7 @@
   "lerna": "lerna",
   "test": "lerna run test --",
   "build": "lerna run build",
-  "prepublish": "lerna run prepublish"
+  "prepublish": "lerna run prepublish",
+   "publish": "lerna publish"
  }
 }

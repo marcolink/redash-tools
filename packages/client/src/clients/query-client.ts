@@ -6,13 +6,13 @@ import {
     GetCachedResultParameters,
     GetJobParameters,
     GetUpdatedResultParameters,
-    ManyParameters,
-    OneParameters,
+    GetManyParameters,
+    GetOneParameters,
     QueryClient,
     Redash,
     RedashClientConfig,
     RedashResult,
-    SnapshotParameters,
+    GetSnapshotParameters,
 } from '../types'
 import {ensureConfig} from "../utils";
 import {waitForJob} from "../waitForJob";
@@ -21,7 +21,7 @@ type PrepareRequestParams<TQuery extends BaseParameters> = {
     clientConfig?: RedashClientConfig, params?: TQuery
 }
 
-export const prepareRequest = <TQuery extends BaseParameters, TResult extends RedashResult>(
+export const createRequest = <TQuery extends BaseParameters, TResult extends RedashResult>(
     {
         params,
         clientConfig
@@ -30,15 +30,15 @@ export const prepareRequest = <TQuery extends BaseParameters, TResult extends Re
     return (config: RequestConfig<TQuery>) => request<TQuery, TResult>(requestClientConfig, config)
 }
 
-const createOne = (clientConfig?: RedashClientConfig) => (params: OneParameters) => {
-    return prepareRequest<OneParameters, Redash.Query>({clientConfig, params})({
+const createGetOne = (clientConfig?: RedashClientConfig) => (params: GetOneParameters) => {
+    return createRequest<GetOneParameters, Redash.Query>({clientConfig, params})({
         path: `/queries/${params.id}`,
         method: 'GET',
     })
 }
 
-const createMany = (clientConfig?: RedashClientConfig) => (params?: ManyParameters) => {
-    return prepareRequest<ManyParameters, Redash.RedashCollectionResult<Redash.Query>>(
+const createGetMany = (clientConfig?: RedashClientConfig) => (params?: GetManyParameters) => {
+    return createRequest<GetManyParameters, Redash.RedashCollectionResult<Redash.Query>>(
         {clientConfig, params})({
         path: '/queries',
         method: 'GET',
@@ -46,8 +46,8 @@ const createMany = (clientConfig?: RedashClientConfig) => (params?: ManyParamete
     })
 }
 
-const createJob = (clientConfig?: RedashClientConfig) => (params: GetJobParameters) => {
-    return prepareRequest<GetJobParameters, Redash.Job>(
+const createGetJob = (clientConfig?: RedashClientConfig) => (params: GetJobParameters) => {
+    return createRequest<GetJobParameters, Redash.Job>(
         {clientConfig, params})(
         {
             path: `/jobs/${params.id}`,
@@ -56,14 +56,14 @@ const createJob = (clientConfig?: RedashClientConfig) => (params: GetJobParamete
     )
 }
 
-const createCachedResult = (clientConfig?: RedashClientConfig) => (params: GetCachedResultParameters) => {
-    return prepareRequest<GetCachedResultParameters, Redash.Result>({clientConfig, params})({
+const createGetCachedResult = (clientConfig?: RedashClientConfig) => (params: GetCachedResultParameters) => {
+    return createRequest<GetCachedResultParameters, Redash.Result>({clientConfig, params})({
         path: `/queries/${params.id}/results`,
         method: 'GET'
     })
 }
 
-const createUpdatedResult = (clientConfig?: RedashClientConfig) => async (params: GetUpdatedResultParameters) => {
+const createGetUpdatedResult = (clientConfig?: RedashClientConfig) => async (params: GetUpdatedResultParameters) => {
     const cConfig = ensureConfig(clientConfig, params?.token);
     const postQueriesResult = await request<Pick<GetUpdatedResultParameters, 'max_age'>, Redash.Result | Redash.Job>(
         cConfig, {
@@ -87,17 +87,17 @@ const createUpdatedResult = (clientConfig?: RedashClientConfig) => async (params
     })
 }
 
-const createSnapshot = (clientConfig?: RedashClientConfig) => (params: SnapshotParameters) => {
+const createGetSnapshot = (clientConfig?: RedashClientConfig) => (params: GetSnapshotParameters) => {
     return snapshot(ensureConfig(clientConfig, params?.token), params)
 }
 
 export function queryClient(clientConfig?: RedashClientConfig): QueryClient {
     return {
-        one: createOne(clientConfig),
-        many: createMany(clientConfig),
-        job: createJob(clientConfig),
-        cachedResult: createCachedResult(clientConfig),
-        updatedResult: createUpdatedResult(clientConfig),
-        snapshot: createSnapshot(clientConfig),
+        getOne: createGetOne(clientConfig),
+        getMany: createGetMany(clientConfig),
+        getJob: createGetJob(clientConfig),
+        getCachedResult: createGetCachedResult(clientConfig),
+        getUpdatedResult: createGetUpdatedResult(clientConfig),
+        getSnapshot: createGetSnapshot(clientConfig),
     }
 }

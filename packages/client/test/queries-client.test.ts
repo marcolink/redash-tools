@@ -67,15 +67,15 @@ describe('A queries client', () => {
     });
 
     it('has a set of functions', () => {
-        expect(client.many).toEqual(expect.anything())
-        expect(client.one).toEqual(expect.anything())
-        expect(client.snapshot).toEqual(expect.anything())
-        expect(client.job).toEqual(expect.anything())
+        expect(client.getMany).toEqual(expect.anything())
+        expect(client.getOne).toEqual(expect.anything())
+        expect(client.getSnapshot).toEqual(expect.anything())
+        expect(client.getJob).toEqual(expect.anything())
     });
 
     it('defaults the host parameter', async () => {
         createFetchMock(mockManyResponse)
-        await client.many({});
+        await client.getMany({});
         expect(fetch).toHaveBeenCalledWith('https://redash.io/api/queries', {
             method: 'GET',
             headers: {'Content-Type': 'application/json', Authorization: 'xxx-token'}
@@ -84,7 +84,7 @@ describe('A queries client', () => {
 
     it('can override with a query scoped token', async () => {
         createFetchMock(mockManyResponse)
-        await client.many({token: 'override-token'});
+        await client.getMany({token: 'override-token'});
         expect(fetch).toHaveBeenCalledWith('https://redash.io/api/queries', {
             method: 'GET',
             headers: {'Content-Type': 'application/json', Authorization: 'override-token'}
@@ -96,12 +96,12 @@ describe('A queries client', () => {
             createFetchMock(mockOneResponse)
         })
         it('fires a single request', async () => {
-            await client.one({id: 'query-id'});
+            await client.getOne({id: 'query-id'});
             expect(fetch).toHaveBeenCalledTimes(1)
         })
 
         it('fires a request with default parameters', async () => {
-            await client.one({id: 'test-id'});
+            await client.getOne({id: 'test-id'});
             expect(fetch).toHaveBeenCalledWith('https://redash.io/api/queries/test-id', {
                 method: 'GET',
                 headers: {'Content-Type': 'application/json', Authorization: 'xxx-token'}
@@ -109,7 +109,7 @@ describe('A queries client', () => {
         })
 
         it('returns a query response', async () => {
-            const result = await client.one({id: 'test-id'});
+            const result = await client.getOne({id: 'test-id'});
             expect(result).toEqual(mockOneResponse)
         })
     })
@@ -120,12 +120,12 @@ describe('A queries client', () => {
         })
 
         it('fires a single request', async () => {
-            await client.many({});
+            await client.getMany({});
             expect(fetch).toHaveBeenCalledTimes(1)
         })
 
         it('fires a request with default parameters', async () => {
-            await client.many({});
+            await client.getMany({});
             expect(fetch).toHaveBeenCalledWith('https://redash.io/api/queries', {
                 method: 'GET',
                 headers: {'Content-Type': 'application/json', Authorization: 'xxx-token'}
@@ -133,7 +133,7 @@ describe('A queries client', () => {
         })
 
         it('returns a queries collection response', async () => {
-            const result = await client.many({});
+            const result = await client.getMany({});
             expect(result).toEqual(mockManyResponse);
         })
     })
@@ -145,12 +145,12 @@ describe('A queries client', () => {
         })
 
         it('fires a single request', async () => {
-            await client.job({id: 'job-id'});
+            await client.getJob({id: 'job-id'});
             expect(fetch).toHaveBeenCalledTimes(1)
         })
 
         it('fires a job request', async () => {
-            await client.job({id: 'job-id'});
+            await client.getJob({id: 'job-id'});
             expect(fetch).toHaveBeenCalledWith('https://redash.io/api/jobs/job-id', {
                 method: 'GET',
                 headers: {'Content-Type': 'application/json', Authorization: 'xxx-token'}
@@ -158,7 +158,7 @@ describe('A queries client', () => {
         })
 
         it('returns a job response', async () => {
-            const result = await client.job({id: 'job-id'});
+            const result = await client.getJob({id: 'job-id'});
             expect(result).toEqual(mockJobResponse)
         })
     })
@@ -169,12 +169,12 @@ describe('A queries client', () => {
         })
 
         it('fires a single request', async () => {
-            await client.cachedResult({id: 'job-id'});
+            await client.getCachedResult({id: 'job-id'});
             expect(fetch).toHaveBeenCalledTimes(1)
         })
 
         it('fires a result request', async () => {
-            await client.cachedResult({id: 'result-id'});
+            await client.getCachedResult({id: 'result-id'});
             expect(fetch).toHaveBeenCalledWith('https://redash.io/api/queries/result-id/results', {
                 method: 'GET',
                 headers: {'Content-Type': 'application/json', Authorization: 'xxx-token'}
@@ -182,7 +182,7 @@ describe('A queries client', () => {
         })
 
         it('returns a job response', async () => {
-            const result = await client.cachedResult({id: 'result-id'});
+            const result = await client.getCachedResult({id: 'result-id'});
             expect(result).toEqual(mockResultResponse)
         })
     })
@@ -194,7 +194,7 @@ describe('A queries client', () => {
             fetchMock.mockResolvedValueOnce({
                 json: () => Promise.resolve(mockResultResponse)
             })
-            const result = await client.updatedResult({id: 'query-id', max_age: 1000});
+            const result = await client.getUpdatedResult({id: 'query-id', max_age: 1000});
             expect(result).toEqual(mockResultResponse)
         })
 
@@ -239,7 +239,7 @@ describe('A queries client', () => {
                 .mockReturnValue(createMockResponse(mockResultResponse))
 
 
-            const result = await client.updatedResult({id: 'query-id', max_age: 0});
+            const result = await client.getUpdatedResult({id: 'query-id', max_age: 0});
 
             verifyAllWhenMocksCalled()
 
@@ -251,7 +251,7 @@ describe('A queries client', () => {
     describe('with a "snapshot" function', () => {
 
         it('requests a query snapshot', async () => {
-            await client.snapshot({queryId: '1', visualizationId: '1'});
+            await client.getSnapshot({queryId: '1', visualizationId: '1'});
             expect(snapshot).toHaveBeenCalledTimes(1)
         })
 

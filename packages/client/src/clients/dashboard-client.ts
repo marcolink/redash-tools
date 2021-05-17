@@ -1,16 +1,16 @@
 import {omit} from "lodash";
-import {DashboardClient, DashboardOneParameters, ManyParameters, Redash, RedashClientConfig} from "redash-js-client";
-import {prepareRequest} from "./query-client";
+import {DashboardClient, DashboardOneParameters, GetManyParameters, Redash, RedashClientConfig} from "../types";
+import {createRequest} from "./query-client";
 
-const createOne = (clientConfig?: RedashClientConfig) => (params: DashboardOneParameters) => {
-    return prepareRequest<DashboardOneParameters, Redash.Dashboard>({clientConfig, params})({
+const createGetOne = (clientConfig?: RedashClientConfig) => (params: DashboardOneParameters) => {
+    return createRequest<DashboardOneParameters, Redash.Dashboard>({clientConfig, params})({
         path: `/dashboards/${params.slug}`,
         method: 'GET',
     })
 }
 
-const createMany = (clientConfig?: RedashClientConfig) => (params?: ManyParameters) => {
-    return prepareRequest<ManyParameters, Redash.RedashCollectionResult<Redash.Dashboard>>(
+const createGetMany = (clientConfig?: RedashClientConfig) => (params?: GetManyParameters) => {
+    return createRequest<GetManyParameters, Redash.RedashCollectionResult<Redash.Dashboard>>(
         {clientConfig, params})({
         path: '/dashboards',
         method: 'GET',
@@ -18,8 +18,8 @@ const createMany = (clientConfig?: RedashClientConfig) => (params?: ManyParamete
     })
 }
 
-const createFavorites = (clientConfig?: RedashClientConfig) => (params?: ManyParameters) => {
-    return prepareRequest<ManyParameters, Redash.RedashCollectionResult<Redash.Dashboard>>(
+const createGetFavorites = (clientConfig?: RedashClientConfig) => (params?: GetManyParameters) => {
+    return createRequest<GetManyParameters, Redash.RedashCollectionResult<Redash.Dashboard>>(
         {clientConfig, params})({
         path: '/dashboards/favorites',
         method: 'GET',
@@ -29,8 +29,8 @@ const createFavorites = (clientConfig?: RedashClientConfig) => (params?: ManyPar
 
 export function dashboardClient(clientConfig?: RedashClientConfig): DashboardClient {
     return {
-        one: createOne(clientConfig),
-        many: createMany(clientConfig),
-        favorites: createFavorites(clientConfig),
+        getOne: createGetOne(clientConfig),
+        getMany: createGetMany(clientConfig),
+        getFavorites: createGetFavorites(clientConfig),
     }
 }

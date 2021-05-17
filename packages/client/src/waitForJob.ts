@@ -1,11 +1,11 @@
 import {request} from "./request";
 import {Redash, RequestClientConfig} from "./types";
 
-async function waitFor<TPayload>(
-    fn: () => Promise<TPayload>,
-    validate: (value: TPayload) => boolean,
+async function waitFor<TResponse>(
+    fn: () => Promise<TResponse>,
+    validate: (value: TResponse) => boolean,
     timeout: number = 1000
-): Promise<TPayload> {
+): Promise<TResponse> {
     const result = await fn();
     if (!validate(result)) {
         await new Promise((resolve => {
@@ -15,7 +15,6 @@ async function waitFor<TPayload>(
     }
     return result;
 }
-
 
 export async function waitForJob(clientConfig: RequestClientConfig, config: { jobId: string }): Promise<Redash.Job> {
     return waitFor(

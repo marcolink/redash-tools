@@ -1,5 +1,5 @@
 import Command, {flags} from '@oclif/command'
-import {queriesClient} from 'redash-js-client'
+import {queryClient} from 'redash-js-client'
 import {base} from '../../flags/base'
 import {validateToken} from '../../validations'
 
@@ -40,11 +40,11 @@ export default class QuerySnapshot extends Command {
     validateToken(this, flags.token)
 
     const path = `${args.path}/${args.queryId}-${args.visualizationId}.png`
-    const client = queriesClient({host: flags.hostname!, token: flags.token})
+    const client = queryClient({host: flags.hostname!, token: flags.token})
 
     this.log('start snapshot process')
 
-    await client.snapshot({
+    await client.getSnapshot({
       queryId: args.queryId,
       visualizationId: args.visualizationId,
       path: path,

@@ -1,5 +1,5 @@
 import Command from '@oclif/command'
-import {queriesClient} from 'redash-js-client'
+import {queryClient} from 'redash-js-client'
 import {base} from '../../flags/base'
 import {stringify} from '../../utils'
 import {validateToken} from '../../validations'
@@ -24,8 +24,8 @@ export default class QueryOne extends Command {
 
     validateToken(this, flags.token)
 
-    const client = queriesClient({host: flags.hostname!, token: flags.token})
-    const result = await client.one({id: args.queryId})
+    const client = queryClient({host: flags.hostname!, token: flags.token})
+    const result = await client.getOne({id: args.queryId})
 
     this.log(stringify(result))
   }

@@ -20,7 +20,7 @@
     "test": "tsdx test",
     "lint": "tsdx lint",
     "prepare": "tsdx build",
-    "prebublish": "tsdx build",
+    "prebublish": "yarn run build",
     "size": "size-limit",
     "analyze": "size-limit --why"
   },

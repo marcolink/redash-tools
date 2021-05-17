@@ -92,5 +92,21 @@ export namespace Redash {
         results: TResult[];
     }
 
-    export type Dashboard = {}
+    export type Dashboard = {
+        id: number,
+        slug: string,
+        name: string,
+        tags: string[],
+        version: number,
+        is_draft: boolean,
+        is_archived: boolean,
+        is_favorite: boolean,
+        user_id: number,
+        user: User,
+        layout: any[],
+        updated_at: ISODateString,
+        created_at: ISODateString,
+        widgets: any,
+        dashboard_filters_enabled: boolean
+    }
 }
