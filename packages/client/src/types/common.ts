@@ -20,10 +20,13 @@ export type PagedParameters = {
 
 export type SearchParameters = { q?: string }
 
-export type GetQueriesParameters = PagedParameters & SearchParameters & BaseParameters
+export type ManyParameters = PagedParameters & SearchParameters & BaseParameters
 
-export type GetQueryParameters = { id: string } & BaseParameters
+export type OneParameters = { id: string } & BaseParameters
 
+/*
+ * Query Client types
+ */
 export type GetJobParameters = { id: string } & BaseParameters
 
 export type GetCachedResultParameters = { id: string } & BaseParameters
@@ -38,15 +41,30 @@ export type SnapshotParameters = {
     height?: number;
 } & BaseParameters
 
-export type QueriesClient = {
-    one: (config: GetQueryParameters) => Promise<Redash.Query>;
-    many: (config?: GetQueriesParameters) => Promise<Redash.RedashCollectionResult<Redash.Query>>;
+export type QueryClient = {
+    one: (config: OneParameters) => Promise<Redash.Query>;
+    many: (config?: ManyParameters) => Promise<Redash.RedashCollectionResult<Redash.Query>>;
     job: (config: GetJobParameters) => Promise<Redash.Job>;
     cachedResult: (config: GetCachedResultParameters) => Promise<Redash.Result>;
     updatedResult: (config: GetUpdatedResultParameters) => Promise<Redash.Result>;
     snapshot: (config: SnapshotParameters) => Promise<string | Buffer | void>;
 }
 
+/*
+ * Dashboard Client types
+ */
+export type DashboardOneParameters = { slug: string } & BaseParameters
+
+export type DashboardClient = {
+    one: (config: DashboardOneParameters) => Promise<Redash.Dashboard>;
+    many: (config?: ManyParameters) => Promise<Redash.RedashCollectionResult<Redash.Dashboard>>;
+    favorites: () =>  Promise<Redash.RedashCollectionResult<Redash.Dashboard>>;
+}
+
+/*
+ * Redash Client types
+ */
 export type RedashClient = {
-    query: QueriesClient;
+    query: QueryClient;
+    dashboard: DashboardClient
 }

@@ -91,4 +91,6 @@ export namespace Redash {
         page_size: number;
         results: TResult[];
     }
+
+    export type Dashboard = {}
 }

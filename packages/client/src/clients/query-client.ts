@@ -5,10 +5,10 @@ import {
     BaseParameters,
     GetCachedResultParameters,
     GetJobParameters,
-    GetQueriesParameters,
-    GetQueryParameters,
     GetUpdatedResultParameters,
-    QueriesClient,
+    ManyParameters,
+    OneParameters,
+    QueryClient,
     Redash,
     RedashClientConfig,
     RedashResult,
@@ -21,7 +21,7 @@ type PrepareRequestParams<TQuery extends BaseParameters> = {
     clientConfig?: RedashClientConfig, params?: TQuery
 }
 
-const prepareRequest = <TQuery extends BaseParameters, TResult extends RedashResult>(
+export const prepareRequest = <TQuery extends BaseParameters, TResult extends RedashResult>(
     {
         params,
         clientConfig
@@ -30,15 +30,15 @@ const prepareRequest = <TQuery extends BaseParameters, TResult extends RedashRes
     return (config: RequestConfig<TQuery>) => request<TQuery, TResult>(requestClientConfig, config)
 }
 
-const createOne = (clientConfig?: RedashClientConfig) => (params: GetQueryParameters) => {
-    return prepareRequest<GetQueryParameters, Redash.Query>({clientConfig, params})({
+const createOne = (clientConfig?: RedashClientConfig) => (params: OneParameters) => {
+    return prepareRequest<OneParameters, Redash.Query>({clientConfig, params})({
         path: `/queries/${params.id}`,
         method: 'GET',
     })
 }
 
-const createMany = (clientConfig?: RedashClientConfig) => (params?: GetQueriesParameters) => {
-    return prepareRequest<GetQueriesParameters, Redash.RedashCollectionResult<Redash.Query>>(
+const createMany = (clientConfig?: RedashClientConfig) => (params?: ManyParameters) => {
+    return prepareRequest<ManyParameters, Redash.RedashCollectionResult<Redash.Query>>(
         {clientConfig, params})({
         path: '/queries',
         method: 'GET',
@@ -91,7 +91,7 @@ const createSnapshot = (clientConfig?: RedashClientConfig) => (params: SnapshotP
     return snapshot(ensureConfig(clientConfig, params?.token), params)
 }
 
-export function queriesClient(clientConfig?: RedashClientConfig): QueriesClient {
+export function queryClient(clientConfig?: RedashClientConfig): QueryClient {
     return {
         one: createOne(clientConfig),
         many: createMany(clientConfig),

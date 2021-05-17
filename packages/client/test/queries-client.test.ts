@@ -1,8 +1,7 @@
 import {verifyAllWhenMocksCalled, when} from 'jest-when'
-import {queriesClient} from '../src';
+import {queryClient} from "../src";
 import {snapshot} from "../src/snapshot";
-import {QueriesClient, Redash} from "../src/types";
-import Job = Redash.Job;
+import {QueryClient, Redash} from "../src/types";
 
 jest.mock('../src/snapshot', () => ({
     snapshot: jest.fn()
@@ -57,10 +56,10 @@ function createFetchMock(response: any) {
 
 describe('A queries client', () => {
 
-    let client: QueriesClient;
+    let client: QueryClient;
 
     beforeEach(() => {
-        client = queriesClient({token: 'xxx-token'})
+        client = queryClient({token: 'xxx-token'})
     })
 
     afterEach(() => {
@@ -202,7 +201,7 @@ describe('A queries client', () => {
         it('wait polls and returns updated result', async () => {
             jest.clearAllMocks();
 
-            const createJobMock = (partial?: object): Job => {
+            const createJobMock = (partial?: object): Redash.Job => {
                 return {
                     job: {
                         status: 1,
