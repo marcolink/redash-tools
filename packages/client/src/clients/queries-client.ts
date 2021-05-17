@@ -1,40 +1,54 @@
 import {omit} from 'lodash'
-import {request} from '../request'
+import {request, RequestConfig} from '../request'
 import {snapshot} from '../snapshot'
 import {
-    GetCachedResultParameter,
-    GetJobParameter,
-    GetQueriesParameter,
-    GetQueryParameter,
-    GetUpdatedResultParameter,
+    BaseParameters,
+    GetCachedResultParameters,
+    GetJobParameters,
+    GetQueriesParameters,
+    GetQueryParameters,
+    GetUpdatedResultParameters,
     QueriesClient,
     Redash,
     RedashClientConfig,
+    RedashResult,
     SnapshotParameters,
 } from '../types'
 import {ensureConfig} from "../utils";
 import {waitForJob} from "../waitForJob";
 
-const createOne = (clientConfig?: RedashClientConfig) => (params: GetQueryParameter) => {
-    return request<GetQueryParameter, Redash.Query>(
-        ensureConfig(clientConfig, params?.token), {
-            path: `/queries/${params.id}`,
-            method: 'GET',
-        })
+type PrepareRequestParams<TQuery extends BaseParameters> = {
+    clientConfig?: RedashClientConfig, params?: TQuery
 }
 
-const createMany = (clientConfig?: RedashClientConfig) => (params?: GetQueriesParameter) => {
-    return request<GetQueriesParameter, Redash.RedashCollectionResult<Redash.Query>>(
-        ensureConfig(clientConfig, params?.token), {
-            path: '/queries',
-            method: 'GET',
-            query: omit(params, ['token'])
-        })
+const prepareRequest = <TQuery extends BaseParameters, TResult extends RedashResult>(
+    {
+        params,
+        clientConfig
+    }: PrepareRequestParams<TQuery>) => {
+    const requestClientConfig = ensureConfig(clientConfig, params?.token);
+    return (config: RequestConfig<TQuery>) => request<TQuery, TResult>(requestClientConfig, config)
 }
 
-const createJob = (clientConfig?: RedashClientConfig) => (params: GetJobParameter) => {
-    return request<GetJobParameter, Redash.Job>(
-        ensureConfig(clientConfig, params?.token),
+const createOne = (clientConfig?: RedashClientConfig) => (params: GetQueryParameters) => {
+    return prepareRequest<GetQueryParameters, Redash.Query>({clientConfig, params})({
+        path: `/queries/${params.id}`,
+        method: 'GET',
+    })
+}
+
+const createMany = (clientConfig?: RedashClientConfig) => (params?: GetQueriesParameters) => {
+    return prepareRequest<GetQueriesParameters, Redash.RedashCollectionResult<Redash.Query>>(
+        {clientConfig, params})({
+        path: '/queries',
+        method: 'GET',
+        query: omit(params, ['token'])
+    })
+}
+
+const createJob = (clientConfig?: RedashClientConfig) => (params: GetJobParameters) => {
+    return prepareRequest<GetJobParameters, Redash.Job>(
+        {clientConfig, params})(
         {
             path: `/jobs/${params.id}`,
             method: 'GET',
@@ -42,16 +56,16 @@ const createJob = (clientConfig?: RedashClientConfig) => (params: GetJobParamete
     )
 }
 
-const createCachedResult = (clientConfig?: RedashClientConfig) => (params: GetCachedResultParameter) => {
-    return request<GetCachedResultParameter, Redash.Result>(ensureConfig(clientConfig, params?.token), {
+const createCachedResult = (clientConfig?: RedashClientConfig) => (params: GetCachedResultParameters) => {
+    return prepareRequest<GetCachedResultParameters, Redash.Result>({clientConfig, params})({
         path: `/queries/${params.id}/results`,
         method: 'GET'
     })
 }
 
-const createUpdatedResult = (clientConfig?: RedashClientConfig) => async (params: GetUpdatedResultParameter) => {
+const createUpdatedResult = (clientConfig?: RedashClientConfig) => async (params: GetUpdatedResultParameters) => {
     const cConfig = ensureConfig(clientConfig, params?.token);
-    const postQueriesResult = await request<Pick<GetUpdatedResultParameter, 'max_age'>, Redash.Result | Redash.Job>(
+    const postQueriesResult = await request<Pick<GetUpdatedResultParameters, 'max_age'>, Redash.Result | Redash.Job>(
         cConfig, {
             path: `/queries/${params.id}/results`,
             method: 'POST',

@@ -20,15 +20,15 @@ export type PagedParameters = {
 
 export type SearchParameters = { q?: string }
 
-export type GetQueriesParameter = PagedParameters & SearchParameters & BaseParameters
+export type GetQueriesParameters = PagedParameters & SearchParameters & BaseParameters
 
-export type GetQueryParameter = { id: string } & BaseParameters
+export type GetQueryParameters = { id: string } & BaseParameters
 
-export type GetJobParameter = { id: string } & BaseParameters
+export type GetJobParameters = { id: string } & BaseParameters
 
-export type GetCachedResultParameter = { id: string } & BaseParameters
+export type GetCachedResultParameters = { id: string } & BaseParameters
 
-export type GetUpdatedResultParameter = { id: string, max_age: number, parameters?: any } & BaseParameters
+export type GetUpdatedResultParameters = { id: string, max_age: number, parameters?: any } & BaseParameters
 
 export type SnapshotParameters = {
     queryId: string;
@@ -39,11 +39,11 @@ export type SnapshotParameters = {
 } & BaseParameters
 
 export type QueriesClient = {
-    one: (config: GetQueryParameter) => Promise<Redash.Query>;
-    many: (config?: GetQueriesParameter) => Promise<Redash.RedashCollectionResult<Redash.Query>>;
-    job: (config: GetJobParameter) => Promise<Redash.Job>;
-    cachedResult: (config: GetCachedResultParameter) => Promise<Redash.Result>;
-    updatedResult: (config: GetUpdatedResultParameter) => Promise<Redash.Result>;
+    one: (config: GetQueryParameters) => Promise<Redash.Query>;
+    many: (config?: GetQueriesParameters) => Promise<Redash.RedashCollectionResult<Redash.Query>>;
+    job: (config: GetJobParameters) => Promise<Redash.Job>;
+    cachedResult: (config: GetCachedResultParameters) => Promise<Redash.Result>;
+    updatedResult: (config: GetUpdatedResultParameters) => Promise<Redash.Result>;
     snapshot: (config: SnapshotParameters) => Promise<string | Buffer | void>;
 }
 

@@ -169,6 +169,11 @@ describe('A queries client', () => {
             createFetchMock(mockResultResponse)
         })
 
+        it('fires a single request', async () => {
+            await client.cachedResult({id: 'job-id'});
+            expect(fetch).toHaveBeenCalledTimes(1)
+        })
+
         it('fires a result request', async () => {
             await client.cachedResult({id: 'result-id'});
             expect(fetch).toHaveBeenCalledWith('https://redash.io/api/queries/result-id/results', {

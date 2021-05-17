@@ -3,9 +3,9 @@ import {RedashResult, RequestClientConfig} from './types'
 const querystring = require('querystring')
 const fetch = require('node-fetch')
 
-type RequestConfig<TQuery> = { path: string; method: string; query?: TQuery, body?: Record<string, any> }
+export type RequestConfig<TQuery> = { path: string; method: string; query?: TQuery, body?: Record<string, any> }
 
-export async function request<TQuery, TResult extends RedashResult, >(
+export async function request<TQuery, TResult extends RedashResult>(
     clientConfig: RequestClientConfig,
     config: RequestConfig<TQuery>
 ): Promise<TResult> {
@@ -29,16 +29,7 @@ export async function request<TQuery, TResult extends RedashResult, >(
     if (config.body) {
         requestConfig.body = JSON.stringify(config.body);
     }
-
-    try {
-        const response = await fetch(`${clientConfig.host}/api${queryPath()}`, requestConfig)
-        const result = await response.json()
-        return result as TResult
-
-    } catch (e){
-        console.log(`FAILED ${clientConfig.host}/api${queryPath()}`, {requestConfig, e})
-    }
-
-    return {} as TResult
-
+    const response = await fetch(`${clientConfig.host}/api${queryPath()}`, requestConfig)
+    const result = await response.json()
+    return result as TResult
 }
