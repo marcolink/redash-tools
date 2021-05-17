@@ -4,10 +4,10 @@ import {base} from '../../flags/base'
 import {stringify} from '../../utils'
 import {validateToken} from '../../validations'
 
-export default class QueriesList extends Command {
+export default class QueryMany extends Command {
   static description = 'Returns a paginated array of query objects'
 
-  static examples = ['$ redash-cli queries:list']
+  static examples = ['$ redash-cli query:many']
 
   static flags = {
     ...base,
@@ -19,7 +19,7 @@ export default class QueriesList extends Command {
   static args = []
 
   async run() {
-    const {flags} = this.parse(QueriesList)
+    const {flags} = this.parse(QueryMany)
 
     validateToken(this, flags.token)
 

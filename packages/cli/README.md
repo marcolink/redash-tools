@@ -19,7 +19,7 @@ $ npm install -g redash-cli
 $ redash-cli COMMAND
 running command...
 $ redash-cli (-v|--version|version)
-redash-cli/0.0.0 darwin-x64 node-v13.8.0
+redash-cli/0.0.0 darwin-x64 node-v14.16.1
 $ redash-cli --help [COMMAND]
 USAGE
   $ redash-cli COMMAND
@@ -29,8 +29,11 @@ USAGE
 # Commands
 <!-- commands -->
 * [`redash-cli help [COMMAND]`](#redash-cli-help-command)
-* [`redash-cli queries:list`](#redash-cli-querieslist)
-* [`redash-cli queries:snapshot QUERYID VISUALIZATIONID [PATH]`](#redash-cli-queriessnapshot-queryid-visualizationid-path)
+* [`redash-cli query:job JOBID`](#redash-cli-queryjob-jobid)
+* [`redash-cli query:many`](#redash-cli-querymany)
+* [`redash-cli query:one QUERYID`](#redash-cli-queryone-queryid)
+* [`redash-cli query:snapshot QUERYID VISUALIZATIONID PATH`](#redash-cli-querysnapshot-queryid-visualizationid-path)
+* [`redash-cli query:update QUERYID [PARAMETERS]`](#redash-cli-queryupdate-queryid-parameters)
 
 ## `redash-cli help [COMMAND]`
 
@@ -51,7 +54,31 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
-## `redash-cli queries:list`
+## `redash-cli query:job JOBID`
+
+Returns queries Job status object
+
+```
+Returns queries Job status object
+
+USAGE
+  $ redash-cli query:job JOBID
+
+ARGUMENTS
+  JOBID  job id
+
+OPTIONS
+  -h, --help               show CLI help
+  -n, --hostname=hostname  [default: https://redash.io] redash hostname
+  -t, --token=token        api (query) token
+
+EXAMPLE
+  $ redash-cli query:job 1234
+```
+
+_See code: [src/commands/query/job.ts](https://github.com/marcolink/redash-tools/blob/v0.0.0/src/commands/query/job.ts)_
+
+## `redash-cli query:many`
 
 Returns a paginated array of query objects
 
@@ -59,7 +86,7 @@ Returns a paginated array of query objects
 Returns a paginated array of query objects
 
 USAGE
-  $ redash-cli queries:list
+  $ redash-cli query:many
 
 OPTIONS
   -h, --help                 show CLI help
@@ -70,12 +97,36 @@ OPTIONS
   -t, --token=token          api (query) token
 
 EXAMPLE
-  $ redash-cli queries:list
+  $ redash-cli query:many
 ```
 
-_See code: [src/commands/queries/list.ts](https://github.com/marcolink/redash-cli/blob/v0.0.0/src/commands/queries/list.ts)_
+_See code: [src/commands/query/many.ts](https://github.com/marcolink/redash-tools/blob/v0.0.0/src/commands/query/many.ts)_
 
-## `redash-cli queries:snapshot QUERYID VISUALIZATIONID [PATH]`
+## `redash-cli query:one QUERYID`
+
+Returns a a single query object
+
+```
+Returns a a single query object
+
+USAGE
+  $ redash-cli query:one QUERYID
+
+ARGUMENTS
+  QUERYID  query id
+
+OPTIONS
+  -h, --help               show CLI help
+  -n, --hostname=hostname  [default: https://redash.io] redash hostname
+  -t, --token=token        api (query) token
+
+EXAMPLE
+  $ redash-cli query:one 1234
+```
+
+_See code: [src/commands/query/one.ts](https://github.com/marcolink/redash-tools/blob/v0.0.0/src/commands/query/one.ts)_
+
+## `redash-cli query:snapshot QUERYID VISUALIZATIONID PATH`
 
 Returns a query chart as png
 
@@ -83,23 +134,49 @@ Returns a query chart as png
 Returns a query chart as png
 
 USAGE
-  $ redash-cli queries:snapshot QUERYID VISUALIZATIONID [PATH]
+  $ redash-cli query:snapshot QUERYID VISUALIZATIONID PATH
 
 ARGUMENTS
   QUERYID          query id
-  VISUALIZATIONID  query id
+  VISUALIZATIONID  visualization id
   PATH             directory path for snapshot png
 
 OPTIONS
-  -h, --height=height      [default: 600] snapshot height
   -h, --help               show CLI help
   -n, --hostname=hostname  [default: https://redash.io] redash hostname
   -t, --token=token        api (query) token
-  -w, --width=width        [default: 800] snapshot width
+  -x, --width=width        [default: 800] snapshot width
+  -y, --height=height      [default: 600] snapshot height
 
 EXAMPLE
-  $ redash-cli queries:snapshot 1234 4561 ./local/snapshots/directory
+  $ redash-cli query:snapshot 1234 5678 ./local/snapshots/directory
 ```
 
-_See code: [src/commands/queries/snapshot.ts](https://github.com/marcolink/redash-cli/blob/v0.0.0/src/commands/queries/snapshot.ts)_
+_See code: [src/commands/query/snapshot.ts](https://github.com/marcolink/redash-tools/blob/v0.0.0/src/commands/query/snapshot.ts)_
+
+## `redash-cli query:update QUERYID [PARAMETERS]`
+
+Returns queries Job status object
+
+```
+Returns queries Job status object
+
+USAGE
+  $ redash-cli query:update QUERYID [PARAMETERS]
+
+ARGUMENTS
+  QUERYID     query id
+  PARAMETERS  query parameters
+
+OPTIONS
+  -h, --help               show CLI help
+  -m, --max_age=max_age    max age of query result
+  -n, --hostname=hostname  [default: https://redash.io] redash hostname
+  -t, --token=token        api (query) token
+
+EXAMPLE
+  $ redash-cli query:update 1234 "{number_param:0,date_param:"2020-01-01"}"
+```
+
+_See code: [src/commands/query/update.ts](https://github.com/marcolink/redash-tools/blob/v0.0.0/src/commands/query/update.ts)_
 <!-- commandsstop -->

@@ -3,17 +3,17 @@ import {queriesClient} from 'redash-js-client'
 import {base} from '../../flags/base'
 import {validateToken} from '../../validations'
 
-export default class QueriesSnapshot extends Command {
+export default class QuerySnapshot extends Command {
   static description = 'Returns a query chart as png'
 
   static examples = [
-    '$ redash-cli queries:snapshot 1234 5678 ./local/snapshots/directory',
+    '$ redash-cli query:snapshot 1234 5678 ./local/snapshots/directory',
   ]
 
   static flags = {
     ...base,
-    width: flags.integer({char: 'w', description: 'snapshot width', default: 800}),
-    height: flags.integer({char: 'h', description: 'snapshot height', default: 600}),
+    width: flags.integer({char: 'x', description: 'snapshot width', default: 800}),
+    height: flags.integer({char: 'y', description: 'snapshot height', default: 600}),
   }
 
   static args = [
@@ -25,7 +25,7 @@ export default class QueriesSnapshot extends Command {
     {
       name: 'visualizationId',
       required: true,
-      description: 'query id',
+      description: 'visualization id',
     },
     {
       name: 'path',
@@ -35,7 +35,7 @@ export default class QueriesSnapshot extends Command {
   ]
 
   async run() {
-    const {flags, args} = this.parse(QueriesSnapshot)
+    const {flags, args} = this.parse(QuerySnapshot)
 
     validateToken(this, flags.token)
 
