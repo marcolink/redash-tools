@@ -24,7 +24,7 @@ export default class QueriesList extends Command {
     validateToken(this, flags.token)
 
     const client = queriesClient({host: flags.hostname!, token: flags.token})
-    const result = await client.list({page: flags.page, page_size: flags.page_size, q: flags.query})
+    const result = await client.many({page: flags.page, page_size: flags.page_size, q: flags.query})
 
     this.log(stringify(result))
   }

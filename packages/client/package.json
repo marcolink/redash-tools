@@ -48,13 +48,17 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.10.2",
+    "@types/jest-when": "^2.7.2",
     "husky": "^6.0.0",
+    "jest-when": "^3.2.1",
     "size-limit": "^4.10.2",
     "tsdx": "^0.14.1",
     "tslib": "^2.2.0",
     "typescript": "^4.2.4"
   },
   "dependencies": {
+    "lodash": "^4.17.21",
+    "node-fetch": "^3.0.0-beta.9",
     "puppeteer": "^9.1.1"
   }
 }

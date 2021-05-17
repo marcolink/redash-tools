@@ -1,11 +1,11 @@
-import {BaseParameters, RedashResult, RequestClientConfig} from './types/common'
+import {RedashResult, RequestClientConfig} from './types/common'
 
 const querystring = require('querystring')
 const fetch = require('node-fetch')
 
-type RequestConfig<TQuery extends BaseParameters> = { path: string; method: string; query?: TQuery, body?: Record<string, any> }
+type RequestConfig<TQuery> = { path: string; method: string; query?: TQuery, body?: Record<string, any> }
 
-export async function request<TQuery extends BaseParameters, TResult extends RedashResult, >(
+export async function request<TQuery, TResult extends RedashResult, >(
     clientConfig: RequestClientConfig,
     config: RequestConfig<TQuery>
 ): Promise<TResult> {
@@ -14,15 +14,31 @@ export async function request<TQuery extends BaseParameters, TResult extends Red
         if (!config.query) {
             return config.path
         }
-        // return `${config.path}?${querystring.stringify({...config.query, corge: ''})}`
-        return `${config.path}?${querystring.stringify(config.query)}`
+        const queryString = querystring.stringify(config.query);
+        if (queryString && queryString.length) {
+            return `${config.path}?${querystring.stringify(config.query)}`
+        }
+        return config.path
     }
 
-    const response = await fetch(`${clientConfig.host}/api${queryPath()}`, {
+    let requestConfig: { method: string, headers: Record<string, string>, body?: string } = {
         method: config.method,
-        body: config.body ? JSON.stringify(config.body) : undefined,
         headers: {'Content-Type': 'application/json', Authorization: clientConfig.token},
-    })
+    }
 
-    return await response.json() as TResult
+    if (config.body) {
+        requestConfig.body = JSON.stringify(config.body);
+    }
+
+    try {
+        const response = await fetch(`${clientConfig.host}/api${queryPath()}`, requestConfig)
+        const result = await response.json()
+        return result as TResult
+
+    } catch (e){
+        console.log(`FAILED ${clientConfig.host}/api${queryPath()}`, {requestConfig, e})
+    }
+
+    return {} as TResult
+
 }

@@ -52,10 +52,37 @@ export namespace Redash {
     4 == FAILURE
     5 == CANCELLED
     */
+    export type JobStatus = 1 | 2 | 3 | 4 | 5
 
     export type Job = {
-        status: 1 | 2 | 3 | 4 | 5
-        query_result_id?: string
+        job: {
+            status: JobStatus,
+            error?: string,
+            id: string,
+            query_result_id?: number,
+            updated_at: ISODateString
+        }
+    }
+
+    type ResultColumn = {
+        friendly_name: string,
+        type: string,
+        name: string
+    }
+
+    export type Result<TRow = Record<string, any>> = {
+        query_result: {
+            retrieved_at: ISODateString,
+            query_hash: string,
+            query: string,
+            runtime: number,
+            data: {
+                rows: TRow[],
+                columns: ResultColumn[]
+            },
+            id: number,
+            data_source_id: number
+        }
     }
 
     export type RedashCollectionResult<TResult> = {
