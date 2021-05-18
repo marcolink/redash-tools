@@ -19,7 +19,7 @@
     "build": "tsdx build --tsconfig tsconfig.build.json",
     "test": "tsdx test",
     "lint": "tsdx lint",
-    "prepare": "tsdx build",
+    "prepare": "yarn run build",
     "prebublish": "yarn run build",
     "size": "size-limit",
     "analyze": "size-limit --why"
@@ -61,5 +61,6 @@
     "lodash": "^4.17.21",
     "node-fetch": "^3.0.0-beta.9",
     "puppeteer": "^9.1.1"
-  }
+  },
+  "gitHead": "a9119d51722ddbf97d10dc6b024341b88c80292a"
 }

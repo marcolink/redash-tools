@@ -12,7 +12,7 @@
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
     "puppeteer": "^9.1.1",
-    "redash-js-client": "^0.0.1",
+    "redash-js-client": "^0.0.0",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
@@ -62,5 +62,6 @@
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif-dev readme && git add README.md"
   },
-  "types": "lib/index.d.ts"
+  "types": "lib/index.d.ts",
+  "gitHead": "a9119d51722ddbf97d10dc6b024341b88c80292a"
 }

@@ -1,3 +1,4 @@
 .envrc
 .idea
 node_modules
+oclif.manifest.json
