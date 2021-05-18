@@ -12,7 +12,7 @@
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
     "puppeteer": "^9.1.1",
-    "redash-js-client": "0.1.0",
+    "redash-js-client": "^0.0.1",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
