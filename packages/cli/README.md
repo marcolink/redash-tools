@@ -19,7 +19,7 @@ $ npm install -g redash-cli
 $ redash-cli COMMAND
 running command...
 $ redash-cli (-v|--version|version)
-redash-cli/0.0.0 darwin-x64 node-v14.16.1
+redash-cli/0.0.1 darwin-x64 node-v14.16.1
 $ redash-cli --help [COMMAND]
 USAGE
   $ redash-cli COMMAND
@@ -76,7 +76,7 @@ EXAMPLE
   $ redash-cli query:job 1234
 ```
 
-_See code: [src/commands/query/job.ts](https://github.com/marcolink/redash-tools/blob/v0.0.0/src/commands/query/job.ts)_
+_See code: [src/commands/query/job.ts](https://github.com/marcolink/redash-tools/blob/v0.0.1/src/commands/query/job.ts)_
 
 ## `redash-cli query:many`
 
@@ -100,7 +100,7 @@ EXAMPLE
   $ redash-cli query:many
 ```
 
-_See code: [src/commands/query/many.ts](https://github.com/marcolink/redash-tools/blob/v0.0.0/src/commands/query/many.ts)_
+_See code: [src/commands/query/many.ts](https://github.com/marcolink/redash-tools/blob/v0.0.1/src/commands/query/many.ts)_
 
 ## `redash-cli query:one QUERYID`
 
@@ -124,7 +124,7 @@ EXAMPLE
   $ redash-cli query:one 1234
 ```
 
-_See code: [src/commands/query/one.ts](https://github.com/marcolink/redash-tools/blob/v0.0.0/src/commands/query/one.ts)_
+_See code: [src/commands/query/one.ts](https://github.com/marcolink/redash-tools/blob/v0.0.1/src/commands/query/one.ts)_
 
 ## `redash-cli query:snapshot QUERYID VISUALIZATIONID PATH`
 
@@ -152,7 +152,7 @@ EXAMPLE
   $ redash-cli query:snapshot 1234 5678 ./local/snapshots/directory
 ```
 
-_See code: [src/commands/query/snapshot.ts](https://github.com/marcolink/redash-tools/blob/v0.0.0/src/commands/query/snapshot.ts)_
+_See code: [src/commands/query/snapshot.ts](https://github.com/marcolink/redash-tools/blob/v0.0.1/src/commands/query/snapshot.ts)_
 
 ## `redash-cli query:update QUERYID [PARAMETERS]`
 
@@ -178,5 +178,5 @@ EXAMPLE
   $ redash-cli query:update 1234 "{number_param:0,date_param:"2020-01-01"}"
 ```
 
-_See code: [src/commands/query/update.ts](https://github.com/marcolink/redash-tools/blob/v0.0.0/src/commands/query/update.ts)_
+_See code: [src/commands/query/update.ts](https://github.com/marcolink/redash-tools/blob/v0.0.1/src/commands/query/update.ts)_
 <!-- commandsstop -->

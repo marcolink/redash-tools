@@ -1,7 +1,7 @@
 {
   "name": "redash-cli",
   "description": "Simple CLI to for redash.io",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Marco Link @marcolink",
   "bin": {
     "redash-cli": "./bin/run"
@@ -12,7 +12,7 @@
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
     "puppeteer": "^9.1.1",
-    "redash-js-client": "^0.0.0",
+    "redash-js-client": "^0.0.1",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
