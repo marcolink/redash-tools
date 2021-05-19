@@ -40,7 +40,7 @@ USAGE
 display help for redash-cli
 
 ```
-display help for <%= config.bin %>
+display help for redash-cli
 
 USAGE
   $ redash-cli help [COMMAND]
