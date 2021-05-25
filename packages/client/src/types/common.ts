@@ -11,6 +11,8 @@ export type RedashClientConfig = {
 
 export type RequestClientConfig = Required<RedashClientConfig>
 
+export type RequestConfig<TQuery> = { path: string; method?: string; query?: TQuery, body?: Record<string, any> }
+
 export type BaseParameters = Pick<RedashClientConfig, 'token'>
 
 export type PagedParameters = {

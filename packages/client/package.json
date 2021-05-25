@@ -18,6 +18,7 @@
     "start": "tsdx watch --tsconfig tsconfig.build.json --verbose --noClean",
     "build": "tsdx build --tsconfig tsconfig.build.json",
     "test": "tsdx test",
+    "test:ci": "tsdx test --coverage",
     "lint": "tsdx lint",
     "prepare": "yarn run build",
     "size": "size-limit",

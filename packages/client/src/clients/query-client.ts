@@ -1,5 +1,5 @@
 import {omit} from 'lodash'
-import {request, RequestConfig} from '../request'
+import {request} from '../request'
 import {snapshot} from '../snapshot'
 import {
     BaseParameters,
@@ -12,7 +12,7 @@ import {
     Redash,
     RedashClientConfig,
     RedashResult,
-    GetSnapshotParameters,
+    GetSnapshotParameters, RequestConfig,
 } from '../types'
 import {ensureConfig} from "../utils";
 import {waitForJob} from "../waitForJob";
@@ -33,7 +33,6 @@ export const createRequest = <TQuery extends BaseParameters, TResult extends Red
 const createGetOne = (clientConfig?: RedashClientConfig) => (params: GetOneParameters) => {
     return createRequest<GetOneParameters, Redash.Query>({clientConfig, params})({
         path: `/queries/${params.id}`,
-        method: 'GET',
     })
 }
 
@@ -41,25 +40,20 @@ const createGetMany = (clientConfig?: RedashClientConfig) => (params?: GetManyPa
     return createRequest<GetManyParameters, Redash.RedashCollectionResult<Redash.Query>>(
         {clientConfig, params})({
         path: '/queries',
-        method: 'GET',
         query: omit(params, ['token'])
     })
 }
 
 const createGetJob = (clientConfig?: RedashClientConfig) => (params: GetJobParameters) => {
     return createRequest<GetJobParameters, Redash.Job>(
-        {clientConfig, params})(
-        {
-            path: `/jobs/${params.id}`,
-            method: 'GET',
-        }
-    )
+        {clientConfig, params})({
+        path: `/jobs/${params.id}`,
+    })
 }
 
 const createGetCachedResult = (clientConfig?: RedashClientConfig) => (params: GetCachedResultParameters) => {
     return createRequest<GetCachedResultParameters, Redash.Result>({clientConfig, params})({
         path: `/queries/${params.id}/results`,
-        method: 'GET'
     })
 }
 
@@ -81,10 +75,7 @@ const createGetUpdatedResult = (clientConfig?: RedashClientConfig) => async (par
 
     const jobResult = await waitForJob(cConfig, {jobId: castedPostQueriesResult.job.id})
 
-    return request<never, Redash.Result>(cConfig, {
-        path: `/query_results/${jobResult.job.query_result_id}`,
-        method: 'GET'
-    })
+    return request<never, Redash.Result>(cConfig, {path: `/query_results/${jobResult.job.query_result_id}`,})
 }
 
 const createGetSnapshot = (clientConfig?: RedashClientConfig) => (params: GetSnapshotParameters) => {

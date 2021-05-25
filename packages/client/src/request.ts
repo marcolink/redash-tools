@@ -1,9 +1,7 @@
-import {RedashResult, RequestClientConfig} from './types'
+import {RedashResult, RequestClientConfig, RequestConfig} from './types'
 
 const querystring = require('querystring')
 const fetch = require('node-fetch')
-
-export type RequestConfig<TQuery> = { path: string; method: string; query?: TQuery, body?: Record<string, any> }
 
 export async function request<TQuery, TResult extends RedashResult>(
     clientConfig: RequestClientConfig,
@@ -14,7 +12,7 @@ export async function request<TQuery, TResult extends RedashResult>(
         if (!config.query) {
             return config.path
         }
-        const queryString = querystring.stringify(config.query);
+        const queryString: string = querystring.stringify(config.query);
         if (queryString && queryString.length) {
             return `${config.path}?${querystring.stringify(config.query)}`
         }
@@ -22,13 +20,14 @@ export async function request<TQuery, TResult extends RedashResult>(
     }
 
     let requestConfig: { method: string, headers: Record<string, string>, body?: string } = {
-        method: config.method,
+        method: config.method || 'GET',
         headers: {'Content-Type': 'application/json', Authorization: clientConfig.token},
     }
 
     if (config.body) {
         requestConfig.body = JSON.stringify(config.body);
     }
+
     const response = await fetch(`${clientConfig.host}/api${queryPath()}`, requestConfig)
     const result = await response.json()
     return result as TResult

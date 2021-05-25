@@ -11,6 +11,8 @@
   "bootstrap": "lerna bootstrap",
   "lerna": "lerna",
   "test": "lerna run test --",
+  "lint": "lerna run lint --",
+  "test:ci": "lerna run test:ci --",
   "build": "lerna run build",
   "prepublish": "lerna run prepublish",
    "publish": "lerna publish"

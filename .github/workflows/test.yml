@@ -17,5 +17,7 @@ jobs:
         name: Bootstrap packages
       - run: yarn run build
         name: Build packages
-      - run: yarn run test
+      - run: yarn run lint
+        name: Lint packages
+      - run: yarn run test:ci
         name: Test packages

@@ -64,3 +64,6 @@ client.getMany().then(console.log)
 - `getOne`
 - `getMany`
 - `getFavorites`
+
+## References
+- [redash.io API](https://redash.io/help/user-guide/integrations-and-api/api) 
