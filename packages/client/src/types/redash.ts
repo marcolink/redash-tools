@@ -92,6 +92,71 @@ export namespace Redash {
         results: TResult[];
     }
 
+    // What are the others?
+    export type VisualizationType = 'CHART' | string
+
+    export type DashboardWidget = {
+        visualization?: {
+            "description": string,
+            "created_at": ISODateString,
+            "updated_at": ISODateString,
+            "id": number,
+            "query": {
+                "user": User,
+                "created_at": ISODateString,
+                "latest_query_data_id": number,
+                "schedule": {
+                    "interval": number,
+                    "until": null,
+                    "day_of_week": null,
+                    "time": "23:15"
+                },
+                "description": null,
+                "tags": [],
+                "updated_at": ISODateString,
+                "last_modified_by": User,
+                "options": {
+                    "parameters": []
+                },
+                "is_safe": boolean,
+                "version": number,
+                "query_hash": string,
+                "is_archived": boolean,
+                "query": string,
+                "api_key": string,
+                "is_draft": boolean,
+                "id": number,
+                "data_source_id": number,
+                "name": string
+            },
+            "type": VisualizationType,
+            "options": any,
+            "name": string
+        },
+        "text": string,
+        "created_at": ISODateString,
+        "updated_at": ISODateString,
+        "options": {
+            "parameterMappings": any,
+            "isHidden": boolean,
+            "position": {
+                "autoHeight": boolean,
+                "sizeX": number,
+                "sizeY": number,
+                "maxSizeY": number,
+                "maxSizeX": number,
+                "minSizeY": number,
+                "minSizeX": number,
+                "col": number,
+                "row": number
+            }
+        },
+        "dashboard_id": number,
+        "width": number,
+        "id": number
+    }
+
+
     export type Dashboard = {
         id: number,
         slug: string,
@@ -106,7 +171,7 @@ export namespace Redash {
         layout: any[],
         updated_at: ISODateString,
         created_at: ISODateString,
-        widgets: any,
+        widgets: DashboardWidget[],
         dashboard_filters_enabled: boolean
     }
 }
