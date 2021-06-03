@@ -7,6 +7,7 @@ Simple CLI to for redash.io
 [![Version](https://img.shields.io/npm/v/redash-cli.svg)](https://npmjs.org/package/redash-cli)
 [![Downloads/week](https://img.shields.io/npm/dw/redash-cli.svg)](https://npmjs.org/package/redash-cli)
 [![License](https://img.shields.io/npm/l/redash-cli.svg)](https://github.com/marcolink/redash-cli/blob/master/package.json)
+[![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
 
 <!-- toc -->
 * [Usage](#usage)
@@ -28,6 +29,7 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`redash-cli dashboard:snapshot SLUG PATH`](#redash-cli-dashboardsnapshot-slug-path)
 * [`redash-cli help [COMMAND]`](#redash-cli-help-command)
 * [`redash-cli query:job JOBID`](#redash-cli-queryjob-jobid)
 * [`redash-cli query:many`](#redash-cli-querymany)
@@ -35,12 +37,40 @@ USAGE
 * [`redash-cli query:snapshot QUERYID VISUALIZATIONID PATH`](#redash-cli-querysnapshot-queryid-visualizationid-path)
 * [`redash-cli query:update QUERYID [PARAMETERS]`](#redash-cli-queryupdate-queryid-parameters)
 
+## `redash-cli dashboard:snapshot SLUG PATH`
+
+Returns a collection of dashboard query pngs
+
+```
+Returns a collection of dashboard query pngs
+
+USAGE
+  $ redash-cli dashboard:snapshot SLUG PATH
+
+ARGUMENTS
+  SLUG  dashboard slug
+  PATH  directory path for snapshot png
+
+OPTIONS
+  -a, --max_age=max_age    [default: 86400] max age (seconds) for cached result
+  -h, --help               show CLI help
+  -n, --hostname=hostname  [default: https://redash.io] redash hostname
+  -t, --token=token        api (query) token
+  -x, --width=width        [default: 800] snapshot width
+  -y, --height=height      [default: 600] snapshot height
+
+EXAMPLE
+  $ redash-cli dashboard:snapshot my-dashboard-slug ./local/snapshots/directory
+```
+
+_See code: [src/commands/dashboard/snapshot.ts](https://github.com/marcolink/redash-tools/blob/v0.0.1/src/commands/dashboard/snapshot.ts)_
+
 ## `redash-cli help [COMMAND]`
 
 display help for redash-cli
 
 ```
-display help for redash-cli
+display help for <%= config.bin %>
 
 USAGE
   $ redash-cli help [COMMAND]

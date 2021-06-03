@@ -1,4 +1,4 @@
-import {omit} from 'lodash'
+import {omit, merge, cloneDeep} from 'lodash'
 import {request} from '../request'
 import {snapshot} from '../snapshot'
 import {
@@ -14,7 +14,7 @@ import {
     RedashResult,
     GetSnapshotParameters, RequestConfig,
 } from '../types'
-import {ensureConfig} from "../utils";
+import {ensureConfig, parseOptionParameters} from "../utils";
 import {waitForJob} from "../waitForJob";
 
 type PrepareRequestParams<TQuery extends BaseParameters> = {
@@ -59,12 +59,24 @@ const createGetCachedResult = (clientConfig?: RedashClientConfig) => (params: Ge
 
 const createGetUpdatedResult = (clientConfig?: RedashClientConfig) => async (params: GetUpdatedResultParameters) => {
     const cConfig = ensureConfig(clientConfig, params?.token);
+
+    const queryData = await createGetOne(clientConfig)(params);
+
+    let parameters = omit(cloneDeep(params.parameters), 'max_age')
+
+    if (queryData.options?.parameters.length) {
+        const params = parseOptionParameters(queryData.options?.parameters)
+        parameters = merge(parameters, params);
+    }
+
     const postQueriesResult = await request<Pick<GetUpdatedResultParameters, 'max_age'>, Redash.Result | Redash.Job>(
         cConfig, {
             path: `/queries/${params.id}/results`,
             method: 'POST',
-            query: {max_age: params.max_age},
-            body: params.parameters ? {parameters: params.parameters} : undefined
+            body: {
+                parameters,
+                max_age: params.max_age
+            }
         })
 
     if (postQueriesResult.hasOwnProperty('query_result')) {

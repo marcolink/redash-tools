@@ -1,11 +1,11 @@
 import Command, {flags} from '@oclif/command'
-import {Redash, redashClient} from 'redash-js-client'
+import PQueue from 'p-queue'
+import {redashClient} from 'redash-js-client'
 import {base} from '../../flags/base'
 import {validateToken} from '../../validations'
-import DashboardWidget = Redash.DashboardWidget;
 
 export default class DashboardSnapshot extends Command {
-  static description = 'Returns a dashboards charts as png'
+  static description = 'Returns a collection of dashboard query pngs'
 
   static examples = [
     '$ redash-cli dashboard:snapshot my-dashboard-slug ./local/snapshots/directory',
@@ -15,6 +15,7 @@ export default class DashboardSnapshot extends Command {
     ...base,
     width: flags.integer({char: 'x', description: 'snapshot width', default: 800}),
     height: flags.integer({char: 'y', description: 'snapshot height', default: 600}),
+    max_age: flags.integer({char: 'a', description: 'max age (seconds) for cached result', default: 60 * 60 * 24}),
   }
 
   static args = [
@@ -39,28 +40,28 @@ export default class DashboardSnapshot extends Command {
 
     const dashboard = await client.dashboard.getOne({slug: args.slug})
 
-    const promises = dashboard.widgets.reduce((previousValue: Promise<void>[], widget: DashboardWidget) => {
+    const queue = new PQueue({concurrency: 1})
+
+    for (const widget of dashboard.widgets) {
       if (widget.visualization) {
         const queryId = widget.visualization.query.id
         const visualizationId = widget.visualization.id
         const path = `${args.path}/${queryId}-${visualizationId}.png`
-        previousValue.push(
-          (async () => {
-            this.log(`create snapshot ${path}`)
-            await client.query.getSnapshot({
-              queryId: queryId,
-              visualizationId: visualizationId,
-              path: path,
-              width: flags.width,
-              height: flags.height,
-            })
-          })()
-        )
+        await queue.add(async () => this.log(`update query ${queryId}`))
+        await queue.add(() => client.query.getUpdatedResult({id: queryId.toString(), max_age: flags.max_age}))
+        await queue.add(async () => this.log(`create snapshot for ${queryId}/${visualizationId}`))
+        await queue.add(() => client.query.getSnapshot({
+          queryId: queryId.toString(),
+          visualizationId: visualizationId.toString(),
+          path: path,
+          width: flags.width,
+          height: flags.height,
+        }))
+        // eslint-disable-next-line no-await-in-loop
+        await queue.add(async () => this.log(`snapshot created ${path}`))
       }
-      return previousValue
-    }, [])
+    }
 
-    await Promise.allSettled(promises)
     this.log('finished snapshot process')
     this.exit()
   }

@@ -1,4 +1,4 @@
-import {ISODateString} from "./common";
+import {ISODateString} from "./client";
 
 export namespace Redash {
 
@@ -81,7 +81,9 @@ export namespace Redash {
                 columns: ResultColumn[]
             },
             id: number,
-            data_source_id: number
+            data_source_id: number,
+            visualizations: Visualization[],
+            options: QueryOptions
         }
     }
 
@@ -93,46 +95,90 @@ export namespace Redash {
     }
 
     // What are the others?
-    export type VisualizationType = 'CHART' | string
+    export type VisualizationType = 'CHART' | 'TABLE' | string
 
-    export type DashboardWidget = {
-        visualization?: {
-            "description": string,
+    export type DynamicDate =
+        'd_yesterday'
+        | 'd_week'
+        | 'd_month'
+        | 'd_last_7_days'
+        | 'd_last_14_days'
+        | 'd_last_30_days'
+        | 'd_last_60_days'
+        | 'd_last_90_days'
+        | 'd_last_week'
+        | 'd_last_month'
+        | 'd_last_year'
+        | 'd_this_week'
+        | 'd_this_month'
+        | 'd_this_year'
+
+    export type  ParameterType =
+        "query"
+        | 'enum'
+        | 'text'
+        | 'date'
+        | 'datetime-local'
+        | 'datetime-with-seconds'
+        | 'date-range'
+        | 'datetime-range'
+        | 'datetime-range-with-seconds'
+
+    export type OptionParameters = {
+        name: string,
+        title: string,
+        global: boolean,
+        value: DynamicDate | string | string[],
+        "queryId": number,
+        "parentQueryId": number,
+        "type": ParameterType,
+        "locals": []
+    }
+
+    export type QueryOptions = {
+        parameters: OptionParameters[]
+    }
+
+    export type Visualization = {
+        "description": string,
+        "created_at": ISODateString,
+        "updated_at": ISODateString,
+        "id": number,
+        "query": {
+            "user": User,
             "created_at": ISODateString,
-            "updated_at": ISODateString,
-            "id": number,
-            "query": {
-                "user": User,
-                "created_at": ISODateString,
-                "latest_query_data_id": number,
-                "schedule": {
-                    "interval": number,
-                    "until": null,
-                    "day_of_week": null,
-                    "time": "23:15"
-                },
-                "description": null,
-                "tags": [],
-                "updated_at": ISODateString,
-                "last_modified_by": User,
-                "options": {
-                    "parameters": []
-                },
-                "is_safe": boolean,
-                "version": number,
-                "query_hash": string,
-                "is_archived": boolean,
-                "query": string,
-                "api_key": string,
-                "is_draft": boolean,
-                "id": number,
-                "data_source_id": number,
-                "name": string
+            "latest_query_data_id": number,
+            "schedule": {
+                "interval": number,
+                "until": null,
+                "day_of_week": null,
+                "time": "23:15"
             },
-            "type": VisualizationType,
-            "options": any,
+            "description": null,
+            "tags": [],
+            "updated_at": ISODateString,
+            "last_modified_by": User,
+            "options": {
+                "parameters": []
+            },
+            "is_safe": boolean,
+            "version": number,
+            "query_hash": string,
+            "is_archived": boolean,
+            "query": string,
+            "api_key": string,
+            "is_draft": boolean,
+            "id": number,
+            "data_source_id": number,
             "name": string
         },
+        "type": VisualizationType,
+        "options": any,
+        "name": string
+    }
+
+    export type DashboardWidget = {
+        visualization?: Visualization,
         "text": string,
         "created_at": ISODateString,
         "updated_at": ISODateString,
