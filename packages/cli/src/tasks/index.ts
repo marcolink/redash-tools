@@ -1,4 +1,3 @@
 export * from './init-client'
-export * from './create-snapshot'
+export * from './create-snapshots'
 export * from './load-dashboard'
-export * from './update-query'

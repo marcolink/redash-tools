@@ -1,10 +1,8 @@
 import Command, {flags} from '@oclif/command'
 import * as Listr from 'listr'
 import {ListrTask} from 'listr'
-import {Redash} from 'redash-js-client'
 import {base} from '../../flags/base'
-import {createSnapshot, initClient, loadDashboard, updateQuery} from '../../tasks'
-import {Context} from '../../tasks/context'
+import {initClient, loadDashboard, createSnapshots} from '../../tasks'
 import {validateToken} from '../../validations'
 
 export default class DashboardSnapshot extends Command {
@@ -42,41 +40,14 @@ export default class DashboardSnapshot extends Command {
     const tasks: ListrTask[] = []
 
     tasks.push(initClient(flags.hostname!, flags.token!))
-    tasks.push(loadDashboard(args.slug))
+    tasks.push(loadDashboard(args.slug, args.path))
+    tasks.push(createSnapshots({
+      height: flags.height,
+      width: flags.width,
+      max_age: flags.max_age,
+    }))
 
-    tasks.push({
-      title: 'Create snapshots',
-      task: (ctx: Context) => {
-        return new Listr(ctx.dashboard.widgets
-        .filter((widget: Redash.DashboardWidget) => {
-          return Boolean(widget.visualization?.query.id)
-        })
-        .map((widget: Redash.DashboardWidget) => {
-          const queryId = widget.visualization?.query.id
-          const visualizationId = widget.visualization?.id
-
-          return {
-            title: `Query ${queryId}/${visualizationId} ${ctx.host}/queries/${queryId}#${visualizationId}`,
-            task: () => {
-              const file = `${args.path}/${queryId}-${visualizationId}.png`
-              return new Listr([
-                updateQuery(queryId!.toString(), flags.max_age),
-                createSnapshot({
-                  queryId: queryId!.toString(),
-                  visualizationId: visualizationId!.toString(),
-                  height: flags.height,
-                  width: flags.width,
-                  path: file,
-                }),
-              ], {concurrent: false})
-            },
-          }
-        }))
-      },
-    })
-
-    const runner = new Listr(tasks, {concurrent: false})
-    await runner.run().catch(this.log)
+    await new Listr(tasks, {concurrent: false}).run()
 
     this.exit()
   }
