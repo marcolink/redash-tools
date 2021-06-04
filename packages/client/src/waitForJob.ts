@@ -19,6 +19,7 @@ async function waitFor<TResponse>(
 export async function waitForJob(clientConfig: RequestClientConfig, config: { jobId: string }): Promise<Redash.Job> {
     return waitFor(
         () => request<{}, Redash.Job>(clientConfig, {path: `/jobs/${config.jobId}`}),
-        (value => value.job.status >= 3)
+        (value => value.job.status >= 3),
+        1000 * 10
     );
 }
