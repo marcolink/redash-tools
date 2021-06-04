@@ -1,7 +1,10 @@
 import Command, {flags} from '@oclif/command'
-import PQueue from 'p-queue'
-import {redashClient} from 'redash-js-client'
+import * as Listr from 'listr'
+import {ListrTask} from 'listr'
+import {Redash} from 'redash-js-client'
 import {base} from '../../flags/base'
+import {createSnapshot, initClient, loadDashboard, updateQuery} from '../../tasks'
+import {Context} from '../../tasks/context'
 import {validateToken} from '../../validations'
 
 export default class DashboardSnapshot extends Command {
@@ -36,33 +39,45 @@ export default class DashboardSnapshot extends Command {
 
     validateToken(this, flags.token)
 
-    const client = redashClient({host: flags.hostname!, token: flags.token})
+    const tasks: ListrTask[] = []
 
-    const dashboard = await client.dashboard.getOne({slug: args.slug})
+    tasks.push(initClient(flags.hostname!, flags.token!))
+    tasks.push(loadDashboard(args.slug))
 
-    const queue = new PQueue({concurrency: 1})
+    tasks.push({
+      title: 'Create snapshots',
+      task: (ctx: Context) => {
+        return new Listr(ctx.dashboard.widgets
+        .filter((widget: Redash.DashboardWidget) => {
+          return Boolean(widget.visualization?.query.id)
+        })
+        .map((widget: Redash.DashboardWidget) => {
+          const queryId = widget.visualization?.query.id
+          const visualizationId = widget.visualization?.id
 
-    for (const widget of dashboard.widgets) {
-      if (widget.visualization) {
-        const queryId = widget.visualization.query.id
-        const visualizationId = widget.visualization.id
-        const path = `${args.path}/${queryId}-${visualizationId}.png`
-        await queue.add(async () => this.log(`update query ${queryId}`))
-        await queue.add(() => client.query.getUpdatedResult({id: queryId.toString(), max_age: flags.max_age}))
-        await queue.add(async () => this.log(`create snapshot for ${queryId}/${visualizationId}`))
-        await queue.add(() => client.query.getSnapshot({
-          queryId: queryId.toString(),
-          visualizationId: visualizationId.toString(),
-          path: path,
-          width: flags.width,
-          height: flags.height,
+          return {
+            title: `Query ${queryId}/${visualizationId} ${ctx.host}/queries/${queryId}#${visualizationId}`,
+            task: () => {
+              const file = `${args.path}/${queryId}-${visualizationId}.png`
+              return new Listr([
+                updateQuery(queryId!.toString(), flags.max_age),
+                createSnapshot({
+                  queryId: queryId!.toString(),
+                  visualizationId: visualizationId!.toString(),
+                  height: flags.height,
+                  width: flags.width,
+                  path: file,
+                }),
+              ], {concurrent: false})
+            },
+          }
         }))
-        // eslint-disable-next-line no-await-in-loop
-        await queue.add(async () => this.log(`snapshot created ${path}`))
-      }
-    }
+      },
+    })
 
-    this.log('finished snapshot process')
+    const runner = new Listr(tasks, {concurrent: false})
+    await runner.run().catch(this.log)
+
     this.exit()
   }
 }
