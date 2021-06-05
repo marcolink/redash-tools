@@ -94,8 +94,19 @@ export namespace Redash {
         results: TResult[];
     }
 
-    // What are the others?
-    export type VisualizationType = 'CHART' | 'TABLE' | string
+    // https://github.com/getredash/redash/tree/master/viz-lib#available-types
+    export type VisualizationType =
+        'CHART'
+        | 'COHORT'
+        | 'DETAILS'
+        | 'FUNNEL'
+        | 'CHOROPLETH'
+        | 'MAP'
+        | 'PIVOT'
+        | 'SANKEY'
+        | 'SUNBURST_SEQUENCE'
+        | 'TABLE'
+        | 'WORD_CLOUD'
 
     export type DynamicDate =
         'd_yesterday'

@@ -1,6 +1,6 @@
 import {omit, merge, cloneDeep} from 'lodash'
 import {request} from '../request'
-import {snapshot} from '../snapshot'
+import {querySnapshot} from '../query-snapshot'
 import {
     BaseParameters,
     GetCachedResultParameters,
@@ -91,7 +91,7 @@ const createGetUpdatedResult = (clientConfig?: RedashClientConfig) => async (par
 }
 
 const createGetSnapshot = (clientConfig?: RedashClientConfig) => (params: GetSnapshotParameters) => {
-    return snapshot(ensureConfig(clientConfig, params?.token), params)
+    return querySnapshot(ensureConfig(clientConfig, params?.token), params)
 }
 
 export function queryClient(clientConfig?: RedashClientConfig): QueryClient {

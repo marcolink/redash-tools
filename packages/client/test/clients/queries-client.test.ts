@@ -1,6 +1,6 @@
 import {verifyAllWhenMocksCalled, when} from 'jest-when'
 import {queryClient} from "redash-js-client";
-import {snapshot} from "../../src/snapshot";
+import {querySnapshot} from "../../src/snapshot";
 import {QueryClient, Redash} from "../../src/types";
 
 jest.mock('../../src/snapshot', () => ({
@@ -256,7 +256,7 @@ describe('A queries client', () => {
 
         it('requests a query snapshot', async () => {
             await client.getSnapshot({queryId: '1', visualizationId: '1'});
-            expect(snapshot).toHaveBeenCalledTimes(1)
+            expect(querySnapshot).toHaveBeenCalledTimes(1)
         })
 
     })
