@@ -8,5 +8,16 @@
   "registry": "https://registry.npmjs.org/",
   "publishConfig": {
     "access": "public"
+  },
+  "command": {
+    "version": {
+      "allowBranch": "master",
+      "conventionalCommits": true
+    },
+    "publish": {
+      "allowBranch": [
+        "master"
+      ]
+    }
   }
 }

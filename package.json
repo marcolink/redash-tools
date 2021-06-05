@@ -1,20 +1,21 @@
 {
- "name": "redash-tools",
- "private": true,
- "devDependencies": {
-  "lerna": "^3.22.1"
- },
+  "name": "redash-tools",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^3.22.1"
+  },
   "workspaces": [
     "packages/*"
   ],
- "scripts": {
-  "bootstrap": "lerna bootstrap",
-  "lerna": "lerna",
-  "test": "lerna run test --",
-  "lint": "lerna run lint --",
-  "test:ci": "lerna run test:ci --",
-  "build": "lerna run build",
-  "prepublish": "lerna run prepublish",
-   "publish": "lerna publish"
- }
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "lerna": "lerna",
+    "test": "lerna run test --",
+    "lint": "lerna run lint --",
+    "test:ci": "lerna run test:ci --",
+    "build": "lerna run build",
+    "prepublish": "lerna run prepublish",
+    "publish": "yarn lerna publish --conventional-commits --create-release github --yes",
+    "semantic-release": "lerna exec --concurrency 1 -- npx --no-install semantic-release -e semantic-release-monorepo"
+  }
 }
