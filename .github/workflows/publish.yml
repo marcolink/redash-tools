@@ -1,7 +1,9 @@
-name: Test
+name: Publish
 
-on: [pull_request]
-
+on:
+  push:
+    branches:
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,3 +23,9 @@ jobs:
         name: Lint packages
       - run: yarn run test:ci
         name: Test packages
+      - run: yarn run publish
+        name: Publish packages
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
