@@ -27,10 +27,10 @@ export const createSnapshots = ({width, height, max_age}: CreateSnapshotParams) 
         if (widget.visualization) {
           const queryId = widget.visualization.query.id.toString()
           const visualizationId = widget.visualization.id.toString()
-          const path = `${ctx.path}/${queryId}-${visualizationId}.png`
+          const path = `${ctx.path}/${widget.visualization?.query.name} ${queryId}-${visualizationId}.png`
           task.output = `[${current}/${total}] Update query ${ctx.host}/queries/${queryId}#${visualizationId}`
           await queue.add(() => ctx.client.query.getUpdatedResult({id: queryId, max_age}))
-          task.output = `[${current}/${total}] Take snapshot ${queryId}/${visualizationId} ${path}`
+          task.output = `[${current}/${total}] Take snapshot ${queryId}/${visualizationId} > ${path}`
           await queue.add(() => ctx.client.query.getSnapshot({
             queryId,
             visualizationId,

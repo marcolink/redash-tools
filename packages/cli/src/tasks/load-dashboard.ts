@@ -7,11 +7,12 @@ export const loadDashboard = (slug: string, dir: string) => {
     title: 'Load dashboard"',
     task: async (ctx: Context, task: ListrTaskWrapper<Context>) => {
       task.output = `Loading dashboard "${slug}"`
-      const path = await mkdir(`${dir}/${slug}/${new Date().toISOString()}`, {recursive: true})
+      const dirPath = `${dir}/${slug}/${new Date().toISOString()}`
+      const path = await mkdir(dirPath, {recursive: true})
       if (!path) {
         throw new Error('can\'t create output path')
       }
-      ctx.path = path
+      ctx.path = dirPath
       ctx.dashboard = await ctx.client.dashboard.getOne({slug})
       task.title = 'Loaded dashboard'
     },
