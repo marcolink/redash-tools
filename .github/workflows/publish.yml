@@ -1,0 +1,29 @@
+name: Publish
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - run: yarn --ignore-engines
+        name: Install dependencies
+      - run: yarn run bootstrap
+        name: Bootstrap packages
+      - run: yarn run build
+        name: Build packages
+      - run: yarn run lint
+        name: Lint packages
+      - run: yarn run test:ci
+        name: Test packages
+      - run: yarn run publish
+        name: Publish packages
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

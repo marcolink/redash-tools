@@ -1,7 +1,8 @@
+import Listr = require('listr')
 import Command, {flags} from '@oclif/command'
-import * as Listr from 'listr'
 import {base} from '../../flags/base'
 import {initClient, loadDashboard, createSnapshots} from '../../tasks'
+import {Context} from '../../tasks/context'
 import {validateToken} from '../../validations'
 
 export default class DashboardSnapshot extends Command {
@@ -36,7 +37,7 @@ export default class DashboardSnapshot extends Command {
 
     validateToken(this, flags.token)
 
-    await new Listr([
+    await new Listr<Context>([
       initClient(flags.hostname!, flags.token!),
       loadDashboard(args.slug, args.path),
       createSnapshots({

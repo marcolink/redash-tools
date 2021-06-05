@@ -11,8 +11,6 @@
     "skipLibCheck": true
   },
   "include": [
-    "src/**/*",
-    "types",
-    "../../types"
+    "src/**/*"
   ]
 }

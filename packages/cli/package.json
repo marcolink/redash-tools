@@ -66,5 +66,5 @@
     "version": "oclif-dev readme && git add README.md"
   },
   "types": "lib/index.d.ts",
-  "gitHead": "a9119d51722ddbf97d10dc6b024341b88c80292a"
+  "gitHead": "af21eb540fbb14f84bded89a4471aa7e23a576c7"
 }

@@ -1,9 +1,9 @@
 import {verifyAllWhenMocksCalled, when} from 'jest-when'
 import {queryClient} from "redash-js-client";
-import {querySnapshot} from "../../src/snapshot";
+import {querySnapshot} from "../../src/query-snapshot";
 import {QueryClient, Redash} from "../../src/types";
 
-jest.mock('../../src/snapshot', () => ({
+jest.mock('../../src/query-snapshot', () => ({
     snapshot: jest.fn()
 }))
 
