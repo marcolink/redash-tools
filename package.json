@@ -15,6 +15,6 @@
     "test:ci": "lerna run test:ci --",
     "build": "lerna run build",
     "prepublish": "lerna run prepublish",
-    "publish": "yarn lerna publish --conventional-commits --create-release github --yes --force-publish --no-verify-access"
+    "publish": "yarn lerna publish"
   }
 }
