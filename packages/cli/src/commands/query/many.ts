@@ -1,6 +1,7 @@
+import Listr = require('listr');
 import Command, {flags} from '@oclif/command'
-import {queryClient} from 'redash-js-client'
-import {base} from '../../flags/base'
+import {base} from '../../flags'
+import {initClient, QueryManyContext} from '../../tasks'
 import {stringify} from '../../utils'
 import {validateToken} from '../../validations'
 
@@ -23,9 +24,22 @@ export default class QueryMany extends Command {
 
     validateToken(this, flags.token)
 
-    const client = queryClient({host: flags.hostname!, token: flags.token})
-    const result = await client.getMany({page: flags.page, page_size: flags.page_size, q: flags.query})
+    const context = await new Listr<QueryManyContext>([
+      initClient(flags.hostname!, flags.token!),
+      {
+        title: 'Load dashboard"',
+        task: async (ctx, task) => {
+          task.output = 'query many'
+          ctx.result = await ctx.client.query.getMany({
+            q: flags.query,
+            page_size: flags.page_size,
+            page: flags.page,
+          })
+          task.title = 'queried many'
+        },
+      },
+    ], {concurrent: false}).run()
 
-    this.log(stringify(result))
+    this.log(stringify(context.result))
   }
 }
