@@ -1,6 +1,7 @@
 import Command from '@oclif/command'
-import {queryClient} from 'redash-js-client'
-import {base} from '../../flags/base'
+import Listr from 'listr'
+import {base} from '../../flags'
+import {initClient, QueryOneContext} from '../../tasks'
 import {stringify} from '../../utils'
 import {validateToken} from '../../validations'
 
@@ -24,9 +25,18 @@ export default class QueryOne extends Command {
 
     validateToken(this, flags.token)
 
-    const client = queryClient({host: flags.hostname!, token: flags.token})
-    const result = await client.getOne({id: args.queryId})
+    const context = await new Listr<QueryOneContext>([
+      initClient(flags.hostname!, flags.token!),
+      {
+        title: 'Load Query',
+        task: async (ctx, task) => {
+          task.output = `query ${args.id}`
+          ctx.result = await ctx.client.query.getOne({id: args.id})
+          task.title = `query ${args.id}`
+        },
+      },
+    ], {concurrent: false}).run()
 
-    this.log(stringify(result))
+    this.log(stringify(context.result))
   }
 }

@@ -1,6 +1,7 @@
 import Command, {flags} from '@oclif/command'
-import {queryClient} from 'redash-js-client'
-import {base} from '../../flags/base'
+import Listr from 'listr'
+import {base} from '../../flags'
+import {initClient, QuerySnapshotContext} from '../../tasks'
 import {validateToken} from '../../validations'
 
 export default class QuerySnapshot extends Command {
@@ -40,20 +41,25 @@ export default class QuerySnapshot extends Command {
     validateToken(this, flags.token)
 
     const path = `${args.path}/${args.queryId}-${args.visualizationId}.png`
-    const client = queryClient({host: flags.hostname!, token: flags.token})
 
-    this.log('start snapshot process')
+    await new Listr<QuerySnapshotContext>([
+      initClient(flags.hostname!, flags.token!),
+      {
+        title: 'Create Snapshot',
+        task: async (ctx, task) => {
+          task.output = `snapshot ${args.queryId}/${args.visualizationId}`
+          await ctx.client.query.getSnapshot({
+            queryId: args.queryId,
+            visualizationId: args.visualizationId,
+            path: path,
+            width: flags.width,
+            height: flags.height,
+          })
+          task.title = `Created snapshot ${path}`
+        },
+      },
+    ], {concurrent: false}).run()
 
-    await client.getSnapshot({
-      queryId: args.queryId,
-      visualizationId: args.visualizationId,
-      path: path,
-      width: flags.width,
-      height: flags.height,
-    })
-
-    this.log('finished snapshot process')
-    this.log(`snapshot stored under ${path}`)
     this.exit()
   }
 }

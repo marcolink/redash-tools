@@ -1,6 +1,7 @@
 import Command from '@oclif/command'
-import {queryClient} from 'redash-js-client'
-import {base} from '../../flags/base'
+import Listr from 'listr'
+import {base} from '../../flags'
+import {initClient, QueryJobContext} from '../../tasks'
 import {stringify} from '../../utils'
 import {validateToken} from '../../validations'
 
@@ -24,9 +25,18 @@ export default class QueryJob extends Command {
 
     validateToken(this, flags.token)
 
-    const client = queryClient({host: flags.hostname!, token: flags.token})
-    const result = await client.getJob({id: args.jobId})
+    const context = await new Listr<QueryJobContext>([
+      initClient(flags.hostname!, flags.token!),
+      {
+        title: 'Load Job',
+        task: async (ctx, task) => {
+          task.output = `loading job ${args.jobId}`
+          ctx.result = await ctx.client.query.getJob({id: args.jobId})
+          task.title = `loaded job ${args.jobId}`
+        },
+      },
+    ], {concurrent: false}).run()
 
-    this.log(stringify(result))
+    this.log(stringify(context.result))
   }
 }

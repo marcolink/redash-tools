@@ -1,7 +1,8 @@
-import {ListrTaskWrapper} from 'listr'
-import {Redash} from 'redash-js-client'
-import {Context} from './context'
+import {mkdir} from 'fs/promises'
+import Listr from 'listr'
 import PQueue from 'p-queue'
+import {Redash} from 'redash-js-client'
+import {ClientContext, DashboardContext, HostContext} from './context'
 
 type CreateSnapshotParams = {
   width: number;
@@ -9,14 +10,19 @@ type CreateSnapshotParams = {
   max_age: number;
 }
 
-export const createSnapshots = ({width, height, max_age}: CreateSnapshotParams) => {
+type CreateSnapshotsContext = ClientContext & DashboardContext & HostContext
+
+export function dashboardSnapshot<TContext extends CreateSnapshotsContext>(slug: string, dir: string, {width, height, max_age}: CreateSnapshotParams): Listr.ListrTask<TContext> {
   return {
     title: 'Create snapshots',
-    task: async (ctx: Context, task: ListrTaskWrapper<Context>) => {
+    task: async (ctx, task) => {
       const widgets = ctx.dashboard.widgets
       .filter((widget: Redash.DashboardWidget) => {
         return Boolean(widget.visualization?.query.id)
       })
+
+      const dirPath = `${dir}/${slug}/${new Date().toISOString()}`
+      await mkdir(dirPath, {recursive: true})
 
       const queue = new PQueue({concurrency: 1})
 
@@ -27,7 +33,7 @@ export const createSnapshots = ({width, height, max_age}: CreateSnapshotParams) 
         if (widget.visualization) {
           const queryId = widget.visualization.query.id.toString()
           const visualizationId = widget.visualization.id.toString()
-          const path = `${ctx.path}/${widget.visualization?.query.name} ${queryId}-${visualizationId}.png`
+          const path = `${dirPath}/${widget.visualization?.query.name} ${queryId}-${visualizationId}.png`
           task.output = `[${current}/${total}] Update query ${ctx.host}/queries/${queryId}#${visualizationId}`
           await queue.add(() => ctx.client.query.getUpdatedResult({id: queryId, max_age}))
           task.output = `[${current}/${total}] Take snapshot ${queryId}/${visualizationId} > ${path}`
@@ -42,7 +48,7 @@ export const createSnapshots = ({width, height, max_age}: CreateSnapshotParams) 
         }
       }
 
-      task.title = `Created snapshots ${ctx.path}`
+      task.title = `Created snapshots ${dirPath}`
     },
   }
 }

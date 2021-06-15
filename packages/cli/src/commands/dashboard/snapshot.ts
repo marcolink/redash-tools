@@ -1,8 +1,7 @@
-import Listr = require('listr')
+import Listr = require('listr');
 import Command, {flags} from '@oclif/command'
-import {base} from '../../flags/base'
-import {initClient, loadDashboard, createSnapshots} from '../../tasks'
-import {Context} from '../../tasks/context'
+import {base, maxAge} from '../../flags'
+import {dashboardSnapshot, dashboardOne, DashboardSnapshotContext, initClient} from '../../tasks'
 import {validateToken} from '../../validations'
 
 export default class DashboardSnapshot extends Command {
@@ -14,9 +13,9 @@ export default class DashboardSnapshot extends Command {
 
   static flags = {
     ...base,
+    ...maxAge,
     width: flags.integer({char: 'x', description: 'snapshot width', default: 1200}),
     height: flags.integer({char: 'y', description: 'snapshot height', default: 900}),
-    max_age: flags.integer({char: 'a', description: 'max age (seconds) for cached result', default: 60 * 60 * 24}),
   }
 
   static args = [
@@ -37,10 +36,10 @@ export default class DashboardSnapshot extends Command {
 
     validateToken(this, flags.token)
 
-    await new Listr<Context>([
+    await new Listr<DashboardSnapshotContext>([
       initClient(flags.hostname!, flags.token!),
-      loadDashboard(args.slug, args.path),
-      createSnapshots({
+      dashboardOne(args.slug),
+      dashboardSnapshot(args.slug, args.path, {
         height: flags.height,
         width: flags.width,
         max_age: flags.max_age,
