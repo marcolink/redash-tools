@@ -4,5 +4,6 @@
 
 Tools around https://redash.io
 - [redash-js-client](packages/client)
+- [redash-snapshot](packages/snapshot)
 - [redash-cli](packages/cli)
 
