@@ -35,21 +35,12 @@ export type GetCachedResultParameters = { id: string } & BaseParameters
 
 export type GetUpdatedResultParameters = { id: string, max_age: number, parameters?: any } & BaseParameters
 
-export type GetSnapshotParameters = {
-    queryId: string;
-    visualizationId: string;
-    path?: string;
-    width?: number;
-    height?: number;
-} & BaseParameters
-
 export type QueryClient = {
     getOne: (config: GetOneParameters) => Promise<Redash.Query>;
     getMany: (config?: GetManyParameters) => Promise<Redash.RedashCollectionResult<Redash.Query>>;
     getJob: (config: GetJobParameters) => Promise<Redash.Job>;
     getCachedResult: (config: GetCachedResultParameters) => Promise<Redash.Result>;
     getUpdatedResult: (config: GetUpdatedResultParameters) => Promise<Redash.Result>;
-    getSnapshot: (config: GetSnapshotParameters) => Promise<string | Buffer | void>;
 }
 
 /*

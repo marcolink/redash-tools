@@ -1,6 +1,5 @@
 import {omit, merge, cloneDeep} from 'lodash'
 import {request} from '../request'
-import {querySnapshot} from '../query-snapshot'
 import {
     BaseParameters,
     GetCachedResultParameters,
@@ -12,7 +11,7 @@ import {
     Redash,
     RedashClientConfig,
     RedashResult,
-    GetSnapshotParameters, RequestConfig,
+    RequestConfig,
 } from '../types'
 import {ensureConfig, parseOptionParameters} from "../utils";
 import {waitForJob} from "../waitForJob";
@@ -90,10 +89,6 @@ const createGetUpdatedResult = (clientConfig?: RedashClientConfig) => async (par
     return request<never, Redash.Result>(cConfig, {path: `/query_results/${jobResult.job.query_result_id}`,})
 }
 
-const createGetSnapshot = (clientConfig?: RedashClientConfig) => (params: GetSnapshotParameters) => {
-    return querySnapshot(ensureConfig(clientConfig, params?.token), params)
-}
-
 export function queryClient(clientConfig?: RedashClientConfig): QueryClient {
     return {
         getOne: createGetOne(clientConfig),
@@ -101,6 +96,5 @@ export function queryClient(clientConfig?: RedashClientConfig): QueryClient {
         getJob: createGetJob(clientConfig),
         getCachedResult: createGetCachedResult(clientConfig),
         getUpdatedResult: createGetUpdatedResult(clientConfig),
-        getSnapshot: createGetSnapshot(clientConfig),
     }
 }

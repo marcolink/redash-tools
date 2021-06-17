@@ -8,6 +8,10 @@ export type HostContext = {
   host: string;
 }
 
+export type TokenContext = {
+  token: string;
+}
+
 export type ResultContext = {
   result: any[] | Record<string, any>;
 }
@@ -20,9 +24,9 @@ export type DashboardContext = {
   listr contexts
  */
 
-export type DashboardSnapshotContext = HostContext & ClientContext & DashboardContext
-export type QueryOneContext = HostContext & ClientContext & ResultContext
-export type QueryManyContext = HostContext & ClientContext & ResultContext
-export type QueryJobContext = HostContext & ClientContext & ResultContext
-export type QueryUpdateContext = HostContext & ClientContext & ResultContext
-export type QuerySnapshotContext = HostContext & ClientContext
+export type DashboardSnapshotContext = HostContext & ClientContext & DashboardContext & TokenContext
+export type QueryOneContext = HostContext & ClientContext & ResultContext & TokenContext
+export type QueryManyContext = HostContext & ClientContext & ResultContext & TokenContext
+export type QueryJobContext = HostContext & ClientContext & ResultContext & TokenContext
+export type QueryUpdateContext = HostContext & ClientContext & ResultContext & TokenContext
+export type QuerySnapshotContext = HostContext & TokenContext

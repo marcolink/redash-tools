@@ -1,7 +1,8 @@
 import Command, {flags} from '@oclif/command'
 import Listr from 'listr'
+import {querySnapshot} from 'redash-snapshot'
 import {base} from '../../flags'
-import {initClient, QuerySnapshotContext} from '../../tasks'
+import {QuerySnapshotContext} from '../../tasks'
 import {validateToken} from '../../validations'
 
 export default class QuerySnapshot extends Command {
@@ -43,12 +44,13 @@ export default class QuerySnapshot extends Command {
     const path = `${args.path}/${args.queryId}-${args.visualizationId}.png`
 
     await new Listr<QuerySnapshotContext>([
-      initClient(flags.hostname!, flags.token!),
       {
         title: 'Create Snapshot',
-        task: async (ctx, task) => {
+        task: async (_, task) => {
           task.output = `snapshot ${args.queryId}/${args.visualizationId}`
-          await ctx.client.query.getSnapshot({
+          await querySnapshot({
+            host: flags.hostname!,
+            token: flags.token!,
             queryId: args.queryId,
             visualizationId: args.visualizationId,
             path: path,
