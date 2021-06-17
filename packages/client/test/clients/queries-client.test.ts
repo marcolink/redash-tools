@@ -1,11 +1,6 @@
 import {verifyAllWhenMocksCalled, when} from 'jest-when'
 import {queryClient} from "redash-js-client";
-import {querySnapshot} from "../../src/query-snapshot";
 import {QueryClient, Redash} from "../../src/types";
-
-jest.mock('../../src/query-snapshot', () => ({
-    snapshot: jest.fn()
-}))
 
 jest.mock('node-fetch', () => {
     return jest.fn();
@@ -73,7 +68,6 @@ describe('A queries client', () => {
     it('has a set of functions', () => {
         expect(client.getMany).toEqual(expect.anything())
         expect(client.getOne).toEqual(expect.anything())
-        expect(client.getSnapshot).toEqual(expect.anything())
         expect(client.getJob).toEqual(expect.anything())
     });
 
@@ -250,17 +244,6 @@ describe('A queries client', () => {
             expect(result).toEqual(mockResultResponse)
         })
     })
-
-
-    describe.skip('with a "snapshot" function', () => {
-
-        it('requests a query snapshot', async () => {
-            await client.getSnapshot({queryId: '1', visualizationId: '1'});
-            expect(querySnapshot).toHaveBeenCalledTimes(1)
-        })
-
-    })
-
 });
 
 

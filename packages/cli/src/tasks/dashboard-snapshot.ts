@@ -2,7 +2,8 @@ import {mkdir} from 'fs/promises'
 import Listr from 'listr'
 import PQueue from 'p-queue'
 import {Redash} from 'redash-js-client'
-import {ClientContext, DashboardContext, HostContext} from './context'
+import {querySnapshot} from 'redash-snapshot'
+import {ClientContext, DashboardContext, HostContext, TokenContext} from './context'
 
 type CreateSnapshotParams = {
   width: number;
@@ -10,9 +11,13 @@ type CreateSnapshotParams = {
   max_age: number;
 }
 
-type CreateSnapshotsContext = ClientContext & DashboardContext & HostContext
+type CreateSnapshotsContext = ClientContext & DashboardContext & HostContext & TokenContext
 
-export function dashboardSnapshot<TContext extends CreateSnapshotsContext>(slug: string, dir: string, {width, height, max_age}: CreateSnapshotParams): Listr.ListrTask<TContext> {
+export function dashboardSnapshot<TContext extends CreateSnapshotsContext>(slug: string, dir: string, {
+  width,
+  height,
+  max_age,
+}: CreateSnapshotParams): Listr.ListrTask<TContext> {
   return {
     title: 'Create snapshots',
     task: async (ctx, task) => {
@@ -37,7 +42,9 @@ export function dashboardSnapshot<TContext extends CreateSnapshotsContext>(slug:
           task.output = `[${current}/${total}] Update query ${ctx.host}/queries/${queryId}#${visualizationId}`
           await queue.add(() => ctx.client.query.getUpdatedResult({id: queryId, max_age}))
           task.output = `[${current}/${total}] Take snapshot ${queryId}/${visualizationId} > ${path}`
-          await queue.add(() => ctx.client.query.getSnapshot({
+          await queue.add(() => querySnapshot({
+            token: ctx.token,
+            host: ctx.host,
             queryId,
             visualizationId,
             path,

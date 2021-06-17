@@ -1,8 +1,19 @@
 import * as puppeteer from 'puppeteer'
-import {GetSnapshotParameters, RedashClientConfig} from './types'
 
-export async function querySnapshot(clientConfig: RedashClientConfig, config: GetSnapshotParameters) {
-    const url = `${clientConfig.host}/embed/query/${config.queryId}/visualization/${config.visualizationId}?api_key=${clientConfig.token}`
+export type GetSnapshotParameters = {
+    token: string;
+    queryId: string;
+    visualizationId: string;
+    host?: string;
+    path?: string;
+    width?: number;
+    height?: number;
+}
+export async function querySnapshot(config: GetSnapshotParameters) {
+
+    config = {host: 'https://redash.io', ...config}
+
+    const url = `${config.host}/embed/query/${config.queryId}/visualization/${config.visualizationId}?api_key=${config.token}`
 
     const browser = await puppeteer.launch()
 
