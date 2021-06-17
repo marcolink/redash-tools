@@ -19,12 +19,10 @@ A javascript client for [redash](https://redash.io) API.
     - [`getJob`](#getjob)
     - [`getCachedResult`](#getcachedresult)
     - [`getUpdatedResult`](#getupdatedresult)
-    - [`getSnapshot`](#getsnapshot)
 - [Dashboard Client](#query-client)
   - [`getOne`](#getone)
   - [`getMany`](#getmany)
   - [`getFavorites`](#getjob)
-  - [`getSnapshot`](#getsnapshot)
 - [Typescript](#typescript)
 
 # Installation
@@ -129,16 +127,6 @@ Updates query and returns new result.
 const result = await client.getUpdatedResult({id: 'query-id', max_age: 60})
 ```
 
-#### `getSnapshot`
-
-Returns snapshot image of given query/visualization
-
-```js
-const snapshot = await client.getSnapshot({
-    queryId: 'query-id',
-    visualizationId: 'visualization-id'
-})
-```
 
 Saves image to disk for given query/visualization
 
