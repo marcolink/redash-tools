@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0](https://github.com/marcolink/redash-tools/compare/redash-cli@0.0.9...redash-cli@0.1.0) (2021-06-17)
+
+
+### Features
+
+* **chore:** use listr for all commands ([e2ac41c](https://github.com/marcolink/redash-tools/commit/e2ac41c10459d352e4faf437ef73558d7697088a))
+
+
+
+
+
 ## [0.0.9](https://github.com/marcolink/redash-tools/compare/redash-cli@0.0.7...redash-cli@0.0.9) (2021-06-07)
 
 **Note:** Version bump only for package redash-cli
