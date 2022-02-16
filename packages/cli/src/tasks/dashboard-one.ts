@@ -1,4 +1,4 @@
-import Listr from 'listr'
+import Listr from 'listr2'
 import {ClientContext, DashboardContext} from './context'
 
 type LoadDashboardContext = ClientContext & DashboardContext

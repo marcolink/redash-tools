@@ -1,5 +1,5 @@
 import Command, {flags} from '@oclif/command'
-import Listr from 'listr'
+import {Listr} from 'listr2'
 import {querySnapshot} from 'redash-snapshot'
 import {base} from '../../flags'
 import {QuerySnapshotContext} from '../../tasks'

@@ -1,4 +1,4 @@
-import Listr = require('listr');
+import {Listr} from 'listr2'
 import Command, {flags} from '@oclif/command'
 import {base, maxAge} from '../../flags'
 import {dashboardSnapshot, dashboardOne, DashboardSnapshotContext, initClient} from '../../tasks'

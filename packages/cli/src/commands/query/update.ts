@@ -1,5 +1,5 @@
 import Command, {flags} from '@oclif/command'
-import Listr from 'listr'
+import {Listr} from 'listr2'
 import {base} from '../../flags'
 import {initClient, QueryUpdateContext} from '../../tasks'
 import {stringify} from '../../utils'

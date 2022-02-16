@@ -51,7 +51,7 @@ export type DashboardOneParameters = { slug: string } & BaseParameters
 export type DashboardClient = {
     getOne: (config: DashboardOneParameters) => Promise<Redash.Dashboard>;
     getMany: (config?: GetManyParameters) => Promise<Redash.RedashCollectionResult<Redash.Dashboard>>;
-    getFavorites: () =>  Promise<Redash.RedashCollectionResult<Redash.Dashboard>>;
+    getFavorites: () => Promise<Redash.RedashCollectionResult<Redash.Dashboard>>;
 }
 
 /*

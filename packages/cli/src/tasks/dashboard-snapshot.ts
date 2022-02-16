@@ -1,5 +1,5 @@
 import {mkdir} from 'fs/promises'
-import Listr from 'listr'
+import Listr from 'listr2'
 import PQueue from 'p-queue'
 import {Redash} from 'redash-js-client'
 import {querySnapshot} from 'redash-snapshot'

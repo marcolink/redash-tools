@@ -1,5 +1,5 @@
 import Command from '@oclif/command'
-import Listr from 'listr'
+import {Listr} from 'listr2'
 import {base} from '../../flags'
 import {initClient, QueryOneContext} from '../../tasks'
 import {stringify} from '../../utils'
@@ -30,9 +30,9 @@ export default class QueryOne extends Command {
       {
         title: 'Load Query',
         task: async (ctx, task) => {
-          task.output = `query ${args.id}`
-          ctx.result = await ctx.client.query.getOne({id: args.id})
-          task.title = `query ${args.id}`
+          task.output = `query ${args.queryId}`
+          ctx.result = await ctx.client.query.getOne({id: args.queryId})
+          task.title = `query ${args.queryId}`
         },
       },
     ], {concurrent: false}).run()

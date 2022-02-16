@@ -11,7 +11,7 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
-    "listr": "^0.14.3",
+    "listr2": "^4.0.4",
     "p-queue": "^6.6.2",
     "puppeteer": "^9.1.1",
     "redash-js-client": "^0.1.0",
@@ -22,7 +22,6 @@
     "@oclif/dev-cli": "^1",
     "@oclif/test": "^1",
     "@types/chai": "^4",
-    "@types/listr": "^0.14.3",
     "@types/mocha": "^5",
     "@types/node": "^15.0.2",
     "chai": "^4",
@@ -66,6 +65,5 @@
     "test:ci": "yarn run test",
     "version": "oclif-dev readme && git add README.md"
   },
-  "types": "lib/index.d.ts",
-  "gitHead": "af21eb540fbb14f84bded89a4471aa7e23a576c7"
+  "types": "lib/index.d.ts"
 }

@@ -1,4 +1,4 @@
-import Listr = require('listr');
+import {Listr} from 'listr2'
 import Command, {flags} from '@oclif/command'
 import {base} from '../../flags'
 import {initClient, QueryManyContext} from '../../tasks'

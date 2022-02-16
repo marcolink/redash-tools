@@ -1,4 +1,4 @@
-import Listr from 'listr'
+import Listr from 'listr2'
 import {redashClient} from 'redash-js-client'
 import {ClientContext, HostContext, TokenContext} from './context'
 

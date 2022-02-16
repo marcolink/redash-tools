@@ -63,8 +63,7 @@
     "dayjs": "^1.10.5",
     "listr": "^0.14.3",
     "lodash": "^4.17.21",
-    "node-fetch": "^3.0.0-beta.9",
+    "node-fetch": "^2.6.7",
     "puppeteer": "^9.1.1"
-  },
-  "gitHead": "af21eb540fbb14f84bded89a4471aa7e23a576c7"
+  }
 }
