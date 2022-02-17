@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.1](https://github.com/marcolink/redash-tools/compare/redash-js-client@0.1.0...redash-js-client@0.1.1) (2022-02-17)
+
+
+### Bug Fixes
+
+* **dependencies:** downgrade node-fetch and switch to listr2 ([572b362](https://github.com/marcolink/redash-tools/commit/572b3628d8e98a7d6eaa036a1bbccdb603ff9518))
+
+
+
+
+
 # [0.1.0](https://github.com/marcolink/redash-tools/compare/redash-js-client@0.0.8...redash-js-client@0.1.0) (2021-06-17)
 
 
