@@ -10,10 +10,10 @@
         "dist/**"
       ]
     },
+    "lint": {
+    },
     "test": {
-      "outputs": [
-
-      ]
+      "outputs": []
     },
     "dev": {
       "cache": false
