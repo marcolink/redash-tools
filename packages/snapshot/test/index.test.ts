@@ -1,5 +1,5 @@
 import {Browser, ElementHandle, Page} from "puppeteer";
-import {querySnapshot} from "../dist";
+import {querySnapshot} from "../src";
 
 export const stubElementHandle = {
     $eval: jest.fn(),
