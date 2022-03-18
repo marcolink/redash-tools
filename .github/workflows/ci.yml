@@ -14,8 +14,6 @@ jobs:
           node-version: '14.x'
       - run: yarn --ignore-engines
         name: Install dependencies
-      - run: yarn run bootstrap
-        name: Bootstrap packages
       - run: yarn run build
         name: Build packages
       - run: yarn run lint
@@ -35,8 +33,6 @@ jobs:
           node-version: '14.x'
       - run: yarn --ignore-engines
         name: Install dependencies
-      - run: yarn run bootstrap
-        name: Bootstrap packages
       - run: yarn run build
         name: Build packages
       - name: Git Identity
