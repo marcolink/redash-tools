@@ -6,5 +6,5 @@ updates:
       interval: "daily"
     open-pull-requests-limit: 10
     commit-message:
-      prefix: dependabot-build
+      prefix: build
       include: scope
