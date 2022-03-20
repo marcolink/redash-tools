@@ -1,0 +1,35 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "pipeline": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "lib/**",
+        "dist/**"
+      ]
+    },
+    "lint": {
+    },
+    "test": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [],
+      "cache": false
+    },
+    "test:ci": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "coverage/**",
+        ".nyc_output/**"
+      ]
+    },
+    "dev": {
+      "cache": false
+    }
+  }
+}
