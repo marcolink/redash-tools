@@ -1,5 +1,5 @@
 {
-  "version": "0.1.6",
+  "version": "0.1.7",
   "name": "redash-js-client",
   "license": "MIT",
   "main": "dist/index.js",
