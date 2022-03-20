@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.3.0 (2022-03-20)
+
+
+### Features
+
+* JSON export for all comands ([#28](https://github.com/marcolink/redash-tools/issues/28)) ([c012e62](https://github.com/marcolink/redash-tools/commit/c012e628c53f9be51e63dbf6d6bbc92eada5b917))
+
+
+
+
+
 ## 0.2.7 (2022-03-20)
 
 **Note:** Version bump only for package redash-cli
