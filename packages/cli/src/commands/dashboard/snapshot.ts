@@ -44,7 +44,7 @@ export default class DashboardSnapshot extends Command {
         width: flags.width,
         max_age: flags.max_age,
       }),
-    ], {concurrent: false}).run()
+    ], {concurrent: false, rendererSilent: flags.json}).run()
 
     this.exit()
   }

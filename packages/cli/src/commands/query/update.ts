@@ -6,9 +6,12 @@ import {stringify} from '../../utils'
 import {validateToken} from '../../validations'
 
 export default class QueryUpdate extends Command {
-  static description = 'Returns queries Job status object'
+  static description = 'Updates query and returns result'
 
-  static examples = ['$ redash-cli query:update 1234 "{number_param:0,date_param:"2020-01-01"}"']
+  static examples = [
+    '$ redash-cli query:update 1234 "{number_param:0,date_param:"2020-01-01"}"',
+    '$ redash-cli query:update 1234 --json > output.json',
+  ]
 
   static flags = {
     ...base,
@@ -29,7 +32,7 @@ export default class QueryUpdate extends Command {
     description: 'query parameters',
   }]
 
-  async run() {
+  public async run() {
     const {flags, args} = this.parse(QueryUpdate)
 
     validateToken(this, flags.token)
@@ -48,8 +51,9 @@ export default class QueryUpdate extends Command {
           task.title = `Updated ${args.queryId}`
         },
       },
-    ], {concurrent: false}).run()
+    ], {concurrent: false, rendererSilent: flags.json}).run()
 
     this.log(stringify(context.result))
+    return context.result
   }
 }

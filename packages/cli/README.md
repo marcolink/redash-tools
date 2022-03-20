@@ -20,7 +20,7 @@ $ npm install -g redash-cli
 $ redash-cli COMMAND
 running command...
 $ redash-cli (-v|--version|version)
-redash-cli/0.2.6 linux-x64 node-v14.19.0
+redash-cli/0.2.6 darwin-x64 node-v14.16.1
 $ redash-cli --help [COMMAND]
 USAGE
   $ redash-cli COMMAND
@@ -55,6 +55,7 @@ OPTIONS
   -h, --help               show CLI help
   -n, --hostname=hostname  [default: https://redash.io] redash hostname
   -t, --token=token        api (query) token
+  --json                   only output JSON response
 
 EXAMPLE
   $ redash-cli dashboard:one my-dashboard-slug
@@ -83,6 +84,7 @@ OPTIONS
   -t, --token=token        api (query) token
   -x, --width=width        [default: 1200] snapshot width
   -y, --height=height      [default: 900] snapshot height
+  --json                   only output JSON response
 
 EXAMPLE
   $ redash-cli dashboard:snapshot my-dashboard-slug ./local/snapshots/directory
@@ -126,6 +128,7 @@ OPTIONS
   -h, --help               show CLI help
   -n, --hostname=hostname  [default: https://redash.io] redash hostname
   -t, --token=token        api (query) token
+  --json                   only output JSON response
 
 EXAMPLE
   $ redash-cli query:job 1234
@@ -150,6 +153,7 @@ OPTIONS
   -q, --query=query          search query string
   -s, --page_size=page_size  [default: 25] page size
   -t, --token=token          api (query) token
+  --json                     only output JSON response
 
 EXAMPLE
   $ redash-cli query:many
@@ -174,6 +178,7 @@ OPTIONS
   -h, --help               show CLI help
   -n, --hostname=hostname  [default: https://redash.io] redash hostname
   -t, --token=token        api (query) token
+  --json                   only output JSON response
 
 EXAMPLE
   $ redash-cli query:one 1234
@@ -202,6 +207,7 @@ OPTIONS
   -t, --token=token        api (query) token
   -x, --width=width        [default: 800] snapshot width
   -y, --height=height      [default: 600] snapshot height
+  --json                   only output JSON response
 
 EXAMPLE
   $ redash-cli query:snapshot 1234 5678 ./local/snapshots/directory
@@ -228,9 +234,11 @@ OPTIONS
   -m, --max_age=max_age    max age of query result
   -n, --hostname=hostname  [default: https://redash.io] redash hostname
   -t, --token=token        api (query) token
+  --json                   only output JSON response
 
-EXAMPLE
+EXAMPLES
   $ redash-cli query:update 1234 "{number_param:0,date_param:"2020-01-01"}"
+  $ redash-cli query:update 1234 --json > output.json
 ```
 
 _See code: [src/commands/query/update.ts](https://github.com/marcolink/redash-tools/blob/v0.2.6/src/commands/query/update.ts)_

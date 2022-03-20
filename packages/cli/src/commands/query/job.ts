@@ -35,8 +35,9 @@ export default class QueryJob extends Command {
           task.title = `loaded job ${args.jobId}`
         },
       },
-    ], {concurrent: false}).run()
+    ], {concurrent: false, rendererSilent: flags.json}).run()
 
     this.log(stringify(context.result))
+    return context.result
   }
 }

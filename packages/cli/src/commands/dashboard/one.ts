@@ -32,10 +32,10 @@ export default class DashboardOne extends Command {
     const context = await new Listr<DashboardSnapshotContext>([
       initClient(flags.hostname!, flags.token!),
       dashboardOne(args.slug),
-    ], {concurrent: false}).run()
+    ], {concurrent: false, rendererSilent: flags.json}).run()
 
     this.log(stringify(context.dashboard))
-
     this.exit()
+    return context.dashboard
   }
 }

@@ -11,7 +11,7 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
-    "listr2": "^4.0.4",
+    "listr2": "^4.0.5",
     "p-queue": "^6.6.2",
     "puppeteer": "^9.1.1",
     "redash-js-client": "^0.1.6",

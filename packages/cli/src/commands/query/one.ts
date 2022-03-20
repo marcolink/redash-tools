@@ -35,8 +35,9 @@ export default class QueryOne extends Command {
           task.title = `query ${args.queryId}`
         },
       },
-    ], {concurrent: false}).run()
+    ], {concurrent: false, rendererSilent: flags.json}).run()
 
     this.log(stringify(context.result))
+    return context.result
   }
 }
