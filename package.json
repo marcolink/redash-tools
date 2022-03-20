@@ -13,7 +13,6 @@
     "lint": "turbo run lint --",
     "test:ci": "turbo run test:ci --",
     "build": "turbo run build",
-    "prepublish": "lerna run prepublish",
     "publish": "yarn lerna publish"
   },
   "packageManager": "yarn@1.22.17",
