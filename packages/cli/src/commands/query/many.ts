@@ -38,8 +38,9 @@ export default class QueryMany extends Command {
           task.title = 'queried many'
         },
       },
-    ], {concurrent: false}).run()
+    ], {concurrent: false, rendererSilent: flags.json}).run()
 
     this.log(stringify(context.result))
+    return context.result
   }
 }

@@ -60,7 +60,7 @@ export default class QuerySnapshot extends Command {
           task.title = `Created snapshot ${path}`
         },
       },
-    ], {concurrent: false}).run()
+    ], {concurrent: false, rendererSilent: flags.json}).run()
 
     this.exit()
   }
