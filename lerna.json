@@ -12,7 +12,8 @@
   "command": {
     "version": {
       "allowBranch": "master",
-      "conventionalCommits": true
+      "conventionalCommits": true,
+      "createRelease": "github"
     },
     "publish": {
       "allowBranch": [
