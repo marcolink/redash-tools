@@ -1,2 +1,2 @@
-export * from './client'
-export * from './redash'
+export * from './client';
+export * from './redash';
