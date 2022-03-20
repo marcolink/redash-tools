@@ -12,7 +12,8 @@
     "test": "turbo run test",
     "lint": "turbo run lint --",
     "build": "turbo run build",
-    "publish": "yarn lerna publish"
+    "publish": "lerna publish",
+    "publish:ci": "lerna publish --yes"
   },
   "packageManager": "yarn@1.22.17",
   "dependencies": {}

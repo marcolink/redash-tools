@@ -39,7 +39,7 @@ jobs:
           git config --global user.email ${{ secrets.GH_EMAIL }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: yarn run publish
+      - run: yarn run publish:ci
         name: Publish packages
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
