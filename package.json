@@ -16,5 +16,6 @@
     "prepublish": "lerna run prepublish",
     "publish": "yarn lerna publish"
   },
-  "packageManager": "yarn@1.22.17"
+  "packageManager": "yarn@1.22.17",
+  "dependencies": {}
 }

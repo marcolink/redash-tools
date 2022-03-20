@@ -1,4 +1,4 @@
-import {Redash} from "redash-js-client";
+import {Redash} from "../src/index";
 import {parseOptionParameters} from "../src/utils";
 import OptionParameters = Redash.OptionParameters;
 import MockDate from 'mockdate'

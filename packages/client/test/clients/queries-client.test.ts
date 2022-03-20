@@ -1,5 +1,5 @@
 import {verifyAllWhenMocksCalled, when} from 'jest-when'
-import {queryClient} from "redash-js-client";
+import {queryClient} from "../../src/index";
 import {QueryClient, Redash} from "../../src/types";
 
 jest.mock('node-fetch', () => {
