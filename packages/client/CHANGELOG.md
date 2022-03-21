@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.2.1 (2022-03-21)
+
+
+### Bug Fixes
+
+* remove unused dependency of puppeteer ([#30](https://github.com/marcolink/redash-tools/issues/30)) ([30d4652](https://github.com/marcolink/redash-tools/commit/30d4652aadb08019de229f5d23ba87555b90d701))
+
+
+
+
+
 # 0.2.0 (2022-03-20)
 
 
