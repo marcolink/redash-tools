@@ -51,7 +51,7 @@
   "devDependencies": {
     "@size-limit/preset-small-lib": "^7.0.8",
     "@types/jest-when": "^3.5.0",
-    "husky": "^6.0.0",
+    "husky": "^7.0.4",
     "jest-when": "^3.2.1",
     "mockdate": "^3.0.5",
     "size-limit": "^7.0.8",
