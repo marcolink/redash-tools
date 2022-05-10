@@ -20,7 +20,7 @@ $ npm install -g redash-cli
 $ redash-cli COMMAND
 running command...
 $ redash-cli (-v|--version|version)
-redash-cli/0.3.4 linux-x64 node-v14.19.0
+redash-cli/0.3.5 linux-x64 node-v14.19.1
 $ redash-cli --help [COMMAND]
 USAGE
   $ redash-cli COMMAND
@@ -43,8 +43,6 @@ USAGE
 Returns a collection of dashboard query pngs
 
 ```
-Returns a collection of dashboard query pngs
-
 USAGE
   $ redash-cli dashboard:one SLUG
 
@@ -61,15 +59,13 @@ EXAMPLE
   $ redash-cli dashboard:one my-dashboard-slug
 ```
 
-_See code: [src/commands/dashboard/one.ts](https://github.com/marcolink/redash-tools/blob/v0.3.4/src/commands/dashboard/one.ts)_
+_See code: [src/commands/dashboard/one.ts](https://github.com/marcolink/redash-tools/blob/v0.3.5/src/commands/dashboard/one.ts)_
 
 ## `redash-cli dashboard:snapshot SLUG PATH`
 
 Returns a collection of dashboard query pngs
 
 ```
-Returns a collection of dashboard query pngs
-
 USAGE
   $ redash-cli dashboard:snapshot SLUG PATH
 
@@ -90,15 +86,13 @@ EXAMPLE
   $ redash-cli dashboard:snapshot my-dashboard-slug ./local/snapshots/directory
 ```
 
-_See code: [src/commands/dashboard/snapshot.ts](https://github.com/marcolink/redash-tools/blob/v0.3.4/src/commands/dashboard/snapshot.ts)_
+_See code: [src/commands/dashboard/snapshot.ts](https://github.com/marcolink/redash-tools/blob/v0.3.5/src/commands/dashboard/snapshot.ts)_
 
 ## `redash-cli help [COMMAND]`
 
 display help for redash-cli
 
 ```
-display help for <%= config.bin %>
-
 USAGE
   $ redash-cli help [COMMAND]
 
@@ -116,8 +110,6 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3
 Returns queries Job status object
 
 ```
-Returns queries Job status object
-
 USAGE
   $ redash-cli query:job JOBID
 
@@ -134,15 +126,13 @@ EXAMPLE
   $ redash-cli query:job 1234
 ```
 
-_See code: [src/commands/query/job.ts](https://github.com/marcolink/redash-tools/blob/v0.3.4/src/commands/query/job.ts)_
+_See code: [src/commands/query/job.ts](https://github.com/marcolink/redash-tools/blob/v0.3.5/src/commands/query/job.ts)_
 
 ## `redash-cli query:many`
 
 Returns a paginated array of query objects
 
 ```
-Returns a paginated array of query objects
-
 USAGE
   $ redash-cli query:many
 
@@ -159,15 +149,13 @@ EXAMPLE
   $ redash-cli query:many
 ```
 
-_See code: [src/commands/query/many.ts](https://github.com/marcolink/redash-tools/blob/v0.3.4/src/commands/query/many.ts)_
+_See code: [src/commands/query/many.ts](https://github.com/marcolink/redash-tools/blob/v0.3.5/src/commands/query/many.ts)_
 
 ## `redash-cli query:one QUERYID`
 
 Returns a a single query object
 
 ```
-Returns a a single query object
-
 USAGE
   $ redash-cli query:one QUERYID
 
@@ -184,15 +172,13 @@ EXAMPLE
   $ redash-cli query:one 1234
 ```
 
-_See code: [src/commands/query/one.ts](https://github.com/marcolink/redash-tools/blob/v0.3.4/src/commands/query/one.ts)_
+_See code: [src/commands/query/one.ts](https://github.com/marcolink/redash-tools/blob/v0.3.5/src/commands/query/one.ts)_
 
 ## `redash-cli query:snapshot QUERYID VISUALIZATIONID PATH`
 
 Returns a query chart as png
 
 ```
-Returns a query chart as png
-
 USAGE
   $ redash-cli query:snapshot QUERYID VISUALIZATIONID PATH
 
@@ -213,15 +199,13 @@ EXAMPLE
   $ redash-cli query:snapshot 1234 5678 ./local/snapshots/directory
 ```
 
-_See code: [src/commands/query/snapshot.ts](https://github.com/marcolink/redash-tools/blob/v0.3.4/src/commands/query/snapshot.ts)_
+_See code: [src/commands/query/snapshot.ts](https://github.com/marcolink/redash-tools/blob/v0.3.5/src/commands/query/snapshot.ts)_
 
 ## `redash-cli query:update QUERYID [PARAMETERS]`
 
 Updates query and returns result
 
 ```
-Updates query and returns result
-
 USAGE
   $ redash-cli query:update QUERYID [PARAMETERS]
 
@@ -231,7 +215,7 @@ ARGUMENTS
 
 OPTIONS
   -h, --help               show CLI help
-  -m, --max_age=max_age    max age of query result
+  -m, --max_age=max_age    [default: 0] max age of query result
   -n, --hostname=hostname  [default: https://redash.io] redash hostname
   -t, --token=token        api (query) token
   --json                   only output JSON response
@@ -241,5 +225,5 @@ EXAMPLES
   $ redash-cli query:update 1234 --json > output.json
 ```
 
-_See code: [src/commands/query/update.ts](https://github.com/marcolink/redash-tools/blob/v0.3.4/src/commands/query/update.ts)_
+_See code: [src/commands/query/update.ts](https://github.com/marcolink/redash-tools/blob/v0.3.5/src/commands/query/update.ts)_
 <!-- commandsstop -->
