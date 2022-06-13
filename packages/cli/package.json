@@ -28,7 +28,7 @@
     "eslint": "^5.13",
     "eslint-config-oclif": "^3.1",
     "eslint-config-oclif-typescript": "^1.0",
-    "globby": "^10",
+    "globby": "^13",
     "mocha": "^5",
     "nyc": "^15",
     "ts-node": "^8",
