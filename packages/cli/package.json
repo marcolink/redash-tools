@@ -13,7 +13,7 @@
     "@oclif/plugin-help": "^2",
     "listr2": "^4.0.5",
     "p-queue": "^6.6.2",
-    "puppeteer": "^9.1.1",
+    "puppeteer": "^19.2.2",
     "redash-js-client": "^0.2.5",
     "redash-snapshot": "^0.2.5",
     "tslib": "^2.2.0"
