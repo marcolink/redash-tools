@@ -2,7 +2,8 @@
   "name": "redash-tools",
   "private": true,
   "devDependencies": {
-    "lerna": "^4.0.0",
+    "lerna": "^6.6.1",
+    "nx": "^15.8.9",
     "turbo": "^1.1.6"
   },
   "workspaces": [
@@ -12,8 +13,8 @@
     "test": "turbo run test",
     "lint": "turbo run lint --",
     "build": "turbo run build",
-    "publish": "lerna publish",
-    "publish:ci": "lerna publish --yes"
+    "publish": "lerna publish from-package",
+    "publish:ci": "lerna publish from-package --yes"
   },
   "packageManager": "yarn@1.22.17",
   "dependencies": {}
