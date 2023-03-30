@@ -20,7 +20,7 @@ $ npm install -g redash-cli
 $ redash-cli COMMAND
 running command...
 $ redash-cli (-v|--version|version)
-redash-cli/0.3.5 linux-x64 node-v14.19.1
+redash-cli/0.3.6 linux-x64 node-v14.21.3
 $ redash-cli --help [COMMAND]
 USAGE
   $ redash-cli COMMAND
@@ -59,7 +59,7 @@ EXAMPLE
   $ redash-cli dashboard:one my-dashboard-slug
 ```
 
-_See code: [src/commands/dashboard/one.ts](https://github.com/marcolink/redash-tools/blob/v0.3.5/src/commands/dashboard/one.ts)_
+_See code: [src/commands/dashboard/one.ts](https://github.com/marcolink/redash-tools/blob/v0.3.6/src/commands/dashboard/one.ts)_
 
 ## `redash-cli dashboard:snapshot SLUG PATH`
 
@@ -86,7 +86,7 @@ EXAMPLE
   $ redash-cli dashboard:snapshot my-dashboard-slug ./local/snapshots/directory
 ```
 
-_See code: [src/commands/dashboard/snapshot.ts](https://github.com/marcolink/redash-tools/blob/v0.3.5/src/commands/dashboard/snapshot.ts)_
+_See code: [src/commands/dashboard/snapshot.ts](https://github.com/marcolink/redash-tools/blob/v0.3.6/src/commands/dashboard/snapshot.ts)_
 
 ## `redash-cli help [COMMAND]`
 
@@ -126,7 +126,7 @@ EXAMPLE
   $ redash-cli query:job 1234
 ```
 
-_See code: [src/commands/query/job.ts](https://github.com/marcolink/redash-tools/blob/v0.3.5/src/commands/query/job.ts)_
+_See code: [src/commands/query/job.ts](https://github.com/marcolink/redash-tools/blob/v0.3.6/src/commands/query/job.ts)_
 
 ## `redash-cli query:many`
 
@@ -149,7 +149,7 @@ EXAMPLE
   $ redash-cli query:many
 ```
 
-_See code: [src/commands/query/many.ts](https://github.com/marcolink/redash-tools/blob/v0.3.5/src/commands/query/many.ts)_
+_See code: [src/commands/query/many.ts](https://github.com/marcolink/redash-tools/blob/v0.3.6/src/commands/query/many.ts)_
 
 ## `redash-cli query:one QUERYID`
 
@@ -172,7 +172,7 @@ EXAMPLE
   $ redash-cli query:one 1234
 ```
 
-_See code: [src/commands/query/one.ts](https://github.com/marcolink/redash-tools/blob/v0.3.5/src/commands/query/one.ts)_
+_See code: [src/commands/query/one.ts](https://github.com/marcolink/redash-tools/blob/v0.3.6/src/commands/query/one.ts)_
 
 ## `redash-cli query:snapshot QUERYID VISUALIZATIONID PATH`
 
@@ -199,7 +199,7 @@ EXAMPLE
   $ redash-cli query:snapshot 1234 5678 ./local/snapshots/directory
 ```
 
-_See code: [src/commands/query/snapshot.ts](https://github.com/marcolink/redash-tools/blob/v0.3.5/src/commands/query/snapshot.ts)_
+_See code: [src/commands/query/snapshot.ts](https://github.com/marcolink/redash-tools/blob/v0.3.6/src/commands/query/snapshot.ts)_
 
 ## `redash-cli query:update QUERYID [PARAMETERS]`
 
@@ -225,5 +225,5 @@ EXAMPLES
   $ redash-cli query:update 1234 --json > output.json
 ```
 
-_See code: [src/commands/query/update.ts](https://github.com/marcolink/redash-tools/blob/v0.3.5/src/commands/query/update.ts)_
+_See code: [src/commands/query/update.ts](https://github.com/marcolink/redash-tools/blob/v0.3.6/src/commands/query/update.ts)_
 <!-- commandsstop -->
