@@ -65,7 +65,7 @@ const createGetUpdatedResult = (clientConfig?: RedashClientConfig) => async (par
 
     if (queryData.options?.parameters.length) {
         const params = parseOptionParameters(queryData.options?.parameters)
-        parameters = merge(parameters, params);
+        parameters = merge(params, parameters);
     }
 
     const postQueriesResult = await request<Pick<GetUpdatedResultParameters, 'max_age'>, Redash.Result | Redash.Job>(
