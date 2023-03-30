@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.2.7 (2023-03-30)
+
+
+### Bug Fixes
+
+* update code scanning action ([#214](https://github.com/marcolink/redash-tools/issues/214)) ([eaa81c3](https://github.com/marcolink/redash-tools/commit/eaa81c38d3b90eb217adc292c1c5460c0ea5c0f0))
+
+
+
+
+
 ## 0.2.6 (2023-03-30)
 
 **Note:** Version bump only for package redash-js-client
